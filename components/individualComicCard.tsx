@@ -78,7 +78,7 @@ const IndividualComic = ({ comic }: { comic: IComic }) => {
               : "Show Description"
             : "No Description"}
         </Button>
-        <Button onClick={() => route.push(`comics/${comic.id}`)}>GoTo</Button>
+        <Button onClick={() => route.push(`/comics/${comic.id}`)}>GoTo</Button>
       </CardFooter>
     </Card>
   );

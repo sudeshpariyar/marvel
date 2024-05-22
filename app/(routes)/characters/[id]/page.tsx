@@ -18,11 +18,13 @@ const IndividuaCharacter = () => {
   useEffect(() => {
     const getIndividualCharacter = async () => {
       try {
+        setLoading(true);
         await axios
           .get(
             `/characters/${params.id}?apikey=${process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY}`
           )
           .then((response) => {
+            setLoading(false);
             setIndividualCharacter(response.data.data.results[0]);
           });
       } catch (error) {
@@ -31,28 +33,33 @@ const IndividuaCharacter = () => {
     };
     getIndividualCharacter();
   }, [params.id]);
-
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className="h-dvh">Loading...</div>;
   }
   return (
     <>
       {individualCharacter && (
-        <div className="h-screen">
-          <div className="relative h-4/5">
-            <Image
-              alt="Mountains"
-              src={`${individualCharacter?.thumbnail.path}/landscape_incredible.${individualCharacter.thumbnail.extension}`}
-              fill
-              className="object-cover object-bottom"
-            />
-          </div>
-          <div className="sm:px-4 md:px-16 lg:px-64 xl:124 my-10">
-            <div className="text-5xl font-bold">{individualCharacter.name}</div>
-            <div className="text-lg text-gray-500 pt-4 leading-1.5">
-              {individualCharacter.description}
+        <div className="flex flex-col gap-10">
+          <div className="h-dvh flex flex-col gap-10">
+            <div className="relative h-4/5">
+              <Image
+                alt="Character"
+                src={`${individualCharacter?.thumbnail.path}/landscape_incredible.${individualCharacter.thumbnail.extension}`}
+                fill
+                className="object-cover object-bottom"
+              />
             </div>
-            <div className="my-10">
+            <div className="sm:px-4 md:px-16 lg:px-64 xl:124">
+              <div className="text-5xl font-bold">
+                {individualCharacter.name}
+              </div>
+              <div className="text-lg text-gray-500 pt-4 leading-1.5">
+                {individualCharacter.description}
+              </div>
+            </div>
+          </div>
+          <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
+            <div>
               <div className="flex items-center gap-2">
                 <Button onClick={() => setComicList(!comicList)}>
                   {comicList ? "Hide" : "List"}
@@ -61,16 +68,13 @@ const IndividuaCharacter = () => {
                   Comics featuring {individualCharacter.name}.
                 </span>
               </div>
-
-              <div>
-                {comicList && (
-                  <ComicsWithCharacter
-                    characterId={params.id as unknown as number}
-                  />
-                )}
-              </div>
+              {comicList && (
+                <ComicsWithCharacter
+                  characterId={params.id as unknown as number}
+                />
+              )}
             </div>
-            <div className="my-10">
+            <div>
               <span className="text-2xl">
                 Events featuring {individualCharacter.name}.
               </span>
@@ -81,7 +85,7 @@ const IndividuaCharacter = () => {
                   ))}
               </div>
             </div>
-            <div className="my-10">
+            <div>
               <span className="text-2xl">
                 Series featuring {individualCharacter.name}.
               </span>
@@ -95,7 +99,7 @@ const IndividuaCharacter = () => {
                   ))}
               </div>
             </div>
-            <div className="my-10">
+            <div>
               <span className="text-2xl">
                 Stories featuring {individualCharacter.name}.
               </span>

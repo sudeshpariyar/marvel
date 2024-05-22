@@ -2,7 +2,10 @@ export interface IUrls {
   type: string;
   url: string;
 }
-
+export interface IImage {
+  path: "string";
+  extension: "string";
+}
 export interface IThumbnail {
   path: "string";
   extension: "string";
@@ -24,4 +27,14 @@ export interface IIndividualStory {
   resourceURI: "string";
   name: "string";
   type: "string";
+}
+export interface IIndividualCharacter {
+  resourceURI: "string";
+  name: "string";
+  role: "string";
+}
+export interface IIndividualCreator {
+  resourceURI: "string";
+  name: "string";
+  role: "string";
 }

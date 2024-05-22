@@ -6,9 +6,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Button } from "./ui/button";
+} from "../ui/card";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { Baby } from "lucide-react";
 
 const Characters = () => {
   const route = useRouter();
@@ -16,7 +17,10 @@ const Characters = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Characters</CardTitle>
+        <CardTitle className="flex align-middle gap-2">
+          <Baby className="text-red-600" />
+          <span>Characters</span>
+        </CardTitle>
         <CardDescription>Get List of the Marvel characters.</CardDescription>
       </CardHeader>
       <CardContent>

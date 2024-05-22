@@ -1,4 +1,13 @@
-import { ISeriesItem, IThumbnail, IUrls } from "./common";
+import {
+  IImage,
+  IIndividualCharacter,
+  IIndividualCreator,
+  IIndividualEvent,
+  IIndividualStory,
+  ISeriesItem,
+  IThumbnail,
+  IUrls,
+} from "./common";
 
 export interface IComic {
   id: "int";
@@ -56,58 +65,30 @@ export interface IComic {
     }
   ];
   thumbnail: IThumbnail;
-  images: [
-    {
-      path: "string";
-      extension: "string";
-    }
-  ];
+  images: IImage[];
   creators: {
     available: "int";
     returned: "int";
     collectionURI: "string";
-    items: [
-      {
-        resourceURI: "string";
-        name: "string";
-        role: "string";
-      }
-    ];
+    items: IIndividualCreator[];
   };
   characters: {
     available: "int";
     returned: "int";
     collectionURI: "string";
-    items: [
-      {
-        resourceURI: "string";
-        name: "string";
-        role: "string";
-      }
-    ];
+    items: IIndividualCharacter[];
   };
   stories: {
     available: "int";
     returned: "int";
     collectionURI: "string";
-    items: [
-      {
-        resourceURI: "string";
-        name: "string";
-        type: "string";
-      }
-    ];
+    items: IIndividualStory[];
   };
   events: {
     available: "int";
     returned: "int";
     collectionURI: "string";
-    items: [
-      {
-        resourceURI: "string";
-        name: "string";
-      }
-    ];
+    items: IIndividualEvent[];
   };
 }
 

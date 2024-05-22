@@ -6,9 +6,10 @@ import {
   CardDescription,
   CardHeader,
   CardTitle,
-} from "./ui/card";
-import { Button } from "./ui/button";
+} from "../ui/card";
+import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
+import { BookOpenText } from "lucide-react";
 
 const ComicsLandingCard = () => {
   const route = useRouter();
@@ -16,7 +17,10 @@ const ComicsLandingCard = () => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Comics</CardTitle>
+        <CardTitle className="flex align-middle gap-2">
+          <BookOpenText className="text-red-600" />
+          <span>Comics</span>
+        </CardTitle>
         <CardDescription>Get List of the Marvel comics.</CardDescription>
       </CardHeader>
       <CardContent>

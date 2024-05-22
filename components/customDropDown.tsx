@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 import { Button } from "./ui/button";
+import { ChevronDown } from "lucide-react";
 
 interface IDropDownProps {
   resultLimit: number;
@@ -18,7 +19,9 @@ const CustomDropDown = ({ resultLimit, setResultLimit }: IDropDownProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button>Results ({resultLimit})</Button>
+        <Button>
+          Results ({resultLimit}) <ChevronDown className="ml-2" />
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>Choose Results Number</DropdownMenuLabel>

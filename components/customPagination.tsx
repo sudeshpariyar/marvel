@@ -22,7 +22,7 @@ const CustomPagination = ({
 }: iPaginationProps) => {
   const maxPage = Math.floor(totalResult / resultLimit);
   return (
-    <Pagination className="mt-10 ">
+    <Pagination>
       <PaginationContent>
         {currentPage >= 1 && (
           <div className="flex">

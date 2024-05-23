@@ -2,36 +2,32 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ICharacter } from "@/types/characters";
-import Image from "next/image";
-import IndividualEvent from "@/components/individualEvent";
 import IndividualSeries from "@/components/individualSeries";
 import IndividualStory from "@/components/individualStory";
-import { Button } from "@/components/ui/button";
-import ComicsWithCharacter from "@/components/comicsWithCharacter";
-import axios from "@/lib/axios";
+import ComicsWithCharacter from "@/components/characters/comicsWithCharacter";
+import CustomImageAndDescription from "@/components/customImageAndDescription";
+import CustomShowHide from "@/components/customShowHide";
+import EventsWithCharacter from "@/components/characters/eventsWithCharacter";
+import { getSingelCharacter } from "@/helperApiCallFunctions/character";
 
 const IndividuaCharacter = () => {
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  const [comicList, setComicList] = useState(false);
+  const [showComicList, setShowComicList] = useState(false);
+  const [showEventList, setShowEventList] = useState(false);
   const [individualCharacter, setIndividualCharacter] = useState<ICharacter>();
   useEffect(() => {
-    const getIndividualCharacter = async () => {
-      try {
-        setLoading(true);
-        await axios
-          .get(
-            `/characters/${params.id}?apikey=${process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY}`
-          )
-          .then((response) => {
-            setLoading(false);
-            setIndividualCharacter(response.data.data.results[0]);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getIndividualCharacter();
+    try {
+      setLoading(true);
+      getSingelCharacter({
+        characterId: params.id as unknown as number,
+      }).then((response) => {
+        setLoading(false);
+        setIndividualCharacter(response);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }, [params.id]);
   if (loading) {
     return <div className="h-dvh">Loading...</div>;
@@ -40,50 +36,36 @@ const IndividuaCharacter = () => {
     <>
       {individualCharacter && (
         <div className="flex flex-col gap-10">
-          <div className="h-dvh flex flex-col gap-10">
-            <div className="relative h-4/5">
-              <Image
-                alt="Character"
-                src={`${individualCharacter?.thumbnail.path}/landscape_incredible.${individualCharacter.thumbnail.extension}`}
-                fill
-                className="object-cover object-bottom"
-              />
-            </div>
-            <div className="sm:px-4 md:px-16 lg:px-64 xl:124">
-              <div className="text-5xl font-bold">
-                {individualCharacter.name}
-              </div>
-              <div className="text-lg text-gray-500 pt-4 leading-1.5">
-                {individualCharacter.description}
-              </div>
-            </div>
-          </div>
+          <CustomImageAndDescription
+            thumbNailPath={individualCharacter.thumbnail.path}
+            thumbnailExtension={individualCharacter.thumbnail.extension}
+            title={individualCharacter.name}
+            description={individualCharacter.description}
+          />
           <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
             <div>
-              <div className="flex items-center gap-2">
-                <Button onClick={() => setComicList(!comicList)}>
-                  {comicList ? "Hide" : "List"}
-                </Button>
-                <span className="text-2xl">
-                  Comics featuring {individualCharacter.name}.
-                </span>
-              </div>
-              {comicList && (
+              <CustomShowHide
+                list={showComicList}
+                setList={setShowComicList}
+                description={`Comics featuring ${individualCharacter.name}`}
+              />
+              {showComicList && (
                 <ComicsWithCharacter
                   characterId={params.id as unknown as number}
                 />
               )}
             </div>
             <div>
-              <span className="text-2xl">
-                Events featuring {individualCharacter.name}.
-              </span>
-              <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2 mt-5">
-                {individualCharacter.events.items &&
-                  individualCharacter.events.items.map((event) => (
-                    <IndividualEvent key={event.resourceURI} event={event} />
-                  ))}
-              </div>
+              <CustomShowHide
+                list={showEventList}
+                setList={setShowEventList}
+                description={`Events featuring ${individualCharacter.name}`}
+              />
+              {showEventList && (
+                <EventsWithCharacter
+                  characterId={params.id as unknown as number}
+                />
+              )}
             </div>
             <div>
               <span className="text-2xl">

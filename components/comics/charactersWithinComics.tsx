@@ -1,44 +1,46 @@
 import React, { useEffect, useState } from "react";
-import axios from "@/lib/axios";
 import { IAllCharacters } from "@/types/characters";
-import IndividualCharacterCard from "../characters/individualCharacterCard";
+import CusotmCharacter from "../characters/cusotmCharacter";
+import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
 
 const CharactersWithinComics = ({ comicId }: { comicId: number }) => {
   const [allCharactersInComics, setAllCharacterInComics] =
     useState<IAllCharacters>();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [resultLimit, setResultLimit] = useState(10);
+  const [characterName, setCharacterName] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
-    const getCharactersInComics = async () => {
-      try {
-        await axios
-          .get(
-            `/comics/${comicId}/characters?apikey=${process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY}`,
-            {
-              params: {
-                orderBy: "name",
-              },
-            }
-          )
-          .then((response) => {
-            setAllCharacterInComics(response.data.data);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getCharactersInComics();
-  }, []);
+    try {
+      setLoading(true);
+      getDataFromComicId({
+        comicId,
+        currentPage,
+        resultLimit,
+        characterName,
+        path: "characters",
+      }).then((response) => {
+        setLoading(false);
+        setAllCharacterInComics(response);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }, [characterName, comicId, currentPage, resultLimit]);
+  if (loading) {
+    return <div className="mt-5">Loading...</div>;
+  }
   return (
     <div className=" mt-5">
       {allCharactersInComics?.results.length ? (
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {allCharactersInComics?.results.length &&
-            allCharactersInComics.results.map((character) => (
-              <IndividualCharacterCard
-                key={character.id}
-                character={character}
-              />
-            ))}
-        </div>
+        <CusotmCharacter
+          allCharacters={allCharactersInComics}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          resultLimit={resultLimit}
+          setResultLimit={setResultLimit}
+          setCharacterName={setCharacterName}
+        />
       ) : (
         <div className="text-gray-500 ml-10">No Characters found.</div>
       )}

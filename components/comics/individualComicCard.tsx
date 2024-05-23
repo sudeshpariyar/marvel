@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { IComic } from "@/types/comics";
 import Image from "next/image";
-import { Button } from "./ui/button";
+import { Button } from "../ui/button";
 import {
   Card,
   CardContent,
@@ -9,13 +9,13 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "./ui/card";
+} from "../ui/card";
 import {
   Carousel,
   CarouselContent,
   CarouselNext,
   CarouselPrevious,
-} from "./ui/carousel";
+} from "../ui/carousel";
 import { useRouter } from "next/navigation";
 
 const IndividualComic = ({ comic }: { comic: IComic }) => {

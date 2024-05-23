@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import { IAllCharacters } from "@/types/characters";
 import CusotmCharacter from "@/components/characters/cusotmCharacter";
-import { getAllCharacters } from "@/helperFunctions/character";
+import { getAllCharacters } from "@/helperApiCallFunctions/character";
 
 const CharacterPage = () => {
   const [allCharacters, setAllCharacters] = useState<IAllCharacters>();
@@ -14,10 +14,10 @@ const CharacterPage = () => {
   useEffect(() => {
     try {
       setLoading(true);
-      getAllCharacters(currentPage, resultLimit, characterName).then(
+      getAllCharacters({ currentPage, resultLimit, characterName }).then(
         (response) => {
           setLoading(false);
-          setAllCharacters(response.data.data);
+          setAllCharacters(response);
         }
       );
     } catch (error) {
@@ -28,7 +28,7 @@ const CharacterPage = () => {
     return <div className="h-dvh">Loading...</div>;
   }
   return (
-    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 my-10 ">
+    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 my-10">
       <CusotmCharacter
         allCharacters={allCharacters}
         currentPage={currentPage}

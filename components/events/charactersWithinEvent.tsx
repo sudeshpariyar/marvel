@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import axios from "@/lib/axios";
 import { IAllCharacters } from "@/types/characters";
 import CusotmCharacter from "../characters/cusotmCharacter";
+import { getDataFromEventId } from "@/helperApiCallFunctions/events";
 
 const CharactersWithinEvent = ({ eventId }: { eventId: number }) => {
   const [allCharactersInEvent, setAllCharacterInEvent] =
@@ -12,25 +13,21 @@ const CharactersWithinEvent = ({ eventId }: { eventId: number }) => {
   const [resultLimit, setResultLimit] = useState(10);
   const [characterName, setCharacterName] = useState("");
   useEffect(() => {
-    const getCharactersInEvent = async () => {
+    try {
       setLoading(true);
-      await axios
-        .get(
-          `/events/${eventId}/characters?apikey=${process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY}`,
-          {
-            params: {
-              offset: currentPage * resultLimit,
-              limit: resultLimit,
-              nameStartsWith: characterName ? characterName : null,
-            },
-          }
-        )
-        .then((response) => {
-          setLoading(false);
-          setAllCharacterInEvent(response.data.data);
-        });
-    };
-    getCharactersInEvent();
+      getDataFromEventId({
+        eventId,
+        currentPage,
+        resultLimit,
+        characterName,
+        path: "characters",
+      }).then((response) => {
+        setLoading(false);
+        setAllCharacterInEvent(response);
+      });
+    } catch (error) {
+      console.log(error);
+    }
   }, [currentPage, eventId, resultLimit, characterName]);
   if (loading) {
     return <div className="h-dvh">Loading...</div>;

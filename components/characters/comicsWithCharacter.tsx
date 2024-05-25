@@ -2,14 +2,24 @@ import { IAllComics } from "@/types/comics";
 import React, { useEffect, useState } from "react";
 import CustomComic from "../comics/customComic";
 import { getDataFromCharacterId } from "@/helperApiCallFunctions/character";
+import CustomShowHide from "../customShowHide";
 
-const ComicsWithCharacter = ({ characterId }: { characterId: number }) => {
+interface IComicsWithCharacter {
+  characterId: number;
+  characterName: string;
+}
+const ComicsWithCharacter = ({
+  characterId,
+  characterName,
+}: IComicsWithCharacter) => {
   const [allComicsWithCharacter, setAllComicsWithCharacter] =
     useState<IAllComics>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [comicName, setComicName] = useState("");
+  const [showComicList, setShowComicList] = useState(false);
+
   useEffect(() => {
     try {
       getDataFromCharacterId({
@@ -31,7 +41,12 @@ const ComicsWithCharacter = ({ characterId }: { characterId: number }) => {
   }
   return (
     <>
-      {allComicsWithCharacter?.results.length && (
+      <CustomShowHide
+        list={showComicList}
+        setList={setShowComicList}
+        description={`Comics featuring ${characterName}`}
+      />
+      {showComicList && (
         <CustomComic
           allComics={allComicsWithCharacter}
           currentPage={currentPage}

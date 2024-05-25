@@ -2,13 +2,21 @@ import { getDataFromEventId } from "@/helperApiCallFunctions/events";
 import { IAllComics } from "@/types/comics";
 import React, { useEffect, useState } from "react";
 import CustomComic from "../comics/customComic";
+import CustomShowHide from "../customShowHide";
 
-const ComicsWithinEvent = ({ eventId }: { eventId: number }) => {
+interface IComicWithEvent {
+  eventId: number;
+  eventTitle: string;
+}
+
+const ComicsWithinEvent = ({ eventId, eventTitle }: IComicWithEvent) => {
   const [allComicsWithEvent, setAllComicsWithEvent] = useState<IAllComics>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [comicName, setComicName] = useState("");
+  const [comicList, setComicList] = useState(false);
+
   useEffect(() => {
     try {
       getDataFromEventId({
@@ -25,9 +33,17 @@ const ComicsWithinEvent = ({ eventId }: { eventId: number }) => {
       console.log(error);
     }
   }, [resultLimit, currentPage, comicName, eventId]);
+  if (loading) {
+    return <div className="h-dvh">Loading...</div>;
+  }
   return (
     <>
-      {allComicsWithEvent?.results.length && (
+      <CustomShowHide
+        list={comicList}
+        setList={setComicList}
+        description={`Comics which takes place during ${eventTitle}`}
+      />
+      {comicList && (
         <CustomComic
           allComics={allComicsWithEvent}
           currentPage={currentPage}

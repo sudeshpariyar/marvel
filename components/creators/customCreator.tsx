@@ -1,60 +1,61 @@
-import { IAllEvents } from "@/types/events";
+import { IAllCreators } from "@/types/creator";
 import React from "react";
+import IndividualCreatorCard from "./individualCreatorCard";
 import CustomDropDown from "../customDropDown";
 import CustomPagination from "../customPagination";
-import IndividualEventCard from "./individualEventCard";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
+
 const formSchema = z.object({
-  eventName: z.string(),
+  creatorName: z.string(),
 });
 
-interface ICustomEventProps {
-  allEvents?: IAllEvents;
+interface ICustomCreatorProps {
+  allCreators?: IAllCreators;
   currentPage: number;
   setCurrentPage: (arg0: number) => void;
   resultLimit: number;
   setResultLimit: (value: number) => void;
-  setEventName: (value: string) => void;
+  setCreatorName: (value: string) => void;
 }
 
-const CustomEvent = ({
-  allEvents,
+const CustomCreator = ({
+  allCreators,
   currentPage,
   setCurrentPage,
   resultLimit,
   setResultLimit,
-  setEventName,
-}: ICustomEventProps) => {
+  setCreatorName,
+}: ICustomCreatorProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      eventName: "",
+      creatorName: "",
     },
   });
 
-  const handleEventNameSubmit = (values: z.infer<typeof formSchema>) => {
-    setEventName(values.eventName);
+  const handleCreatorNameSubmit = (values: z.infer<typeof formSchema>) => {
+    setCreatorName(values.creatorName);
   };
   return (
     <>
       <div className="flex flex-col gap-4">
         <div className="flex flex-row items-center justify-between">
-          <span> Total events {allEvents?.total}.</span>
+          <span> Total creators {allCreators?.total}.</span>
           <div className="flex gap-2">
             <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleEventNameSubmit)}>
+              <form onSubmit={form.handleSubmit(handleCreatorNameSubmit)}>
                 <FormField
                   control={form.control}
-                  name="eventName"
+                  name="creatorName"
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
                         <Input
-                          placeholder="Event title starts with..."
+                          placeholder="Creator name starts with..."
                           {...field}
                         />
                       </FormControl>
@@ -69,17 +70,18 @@ const CustomEvent = ({
             />
           </div>
         </div>
-        {allEvents?.results.length && (
+
+        {allCreators?.results.length && (
           <div className="flex flex-col gap-4">
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {allEvents.results.map((event) => (
-                <IndividualEventCard key={event.id} event={event} />
+              {allCreators.results.map((creator) => (
+                <IndividualCreatorCard key={creator.id} creator={creator} />
               ))}
             </div>
             <CustomPagination
               currentPage={currentPage}
               setCurrentPage={setCurrentPage}
-              totalResult={allEvents.total as unknown as number}
+              totalResult={allCreators.total as unknown as number}
               resultLimit={resultLimit}
             />
           </div>
@@ -89,4 +91,4 @@ const CustomEvent = ({
   );
 };
 
-export default CustomEvent;
+export default CustomCreator;

@@ -1,5 +1,4 @@
 import axios from "@/lib/axios";
-import { ICharacter } from "@/types/characters";
 
 //Gets all the Characters
 interface IGetAllCharacterProps {

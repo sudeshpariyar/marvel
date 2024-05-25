@@ -1,6 +1,5 @@
 "use client";
 import { IAllComics } from "@/types/comics";
-import axios from "@/lib/axios";
 import React, { useEffect, useState } from "react";
 import CustomComic from "@/components/comics/customComic";
 import { getAllComics } from "@/helperApiCallFunctions/comics";
@@ -27,7 +26,7 @@ const ComicsPage = () => {
     return <div className="h-dvh">Loading...</div>;
   }
   return (
-    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 my-10">
+    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 mt-10">
       <CustomComic
         allComics={allComics}
         currentPage={currentPage}

@@ -1,7 +1,6 @@
 "use client";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
-import axios from "@/lib/axios";
 import { IComic } from "@/types/comics";
 import CharactersWithinComics from "@/components/comics/charactersWithinComics";
 import CustomImageAndDescription from "@/components/customImageAndDescription";
@@ -12,7 +11,7 @@ import EventsWithinComics from "@/components/comics/eventsWithinComics";
 const IndividualComic = () => {
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  const [characterList, setCharacterList] = useState(false);
+  // const [characterList, setCharacterList] = useState(false);
   const [individualComic, setIndividualComic] = useState<IComic>();
 
   useEffect(() => {
@@ -42,30 +41,14 @@ const IndividualComic = () => {
             description={individualComic.description}
           />
           <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
-            <div>
-              <CustomShowHide
-                list={characterList}
-                setList={setCharacterList}
-                description={`Characters featuring in ${individualComic.title}.`}
-              />
-              {characterList && (
-                <CharactersWithinComics
-                  comicId={params.id as unknown as number}
-                />
-              )}
-            </div>
+            <CharactersWithinComics
+              comicId={params.id as unknown as number}
+              comicTitle={individualComic.title}
+            />
             <EventsWithinComics
               comicTitle={individualComic.title}
               comicId={params.id as unknown as number}
             />
-            <div>This is the end</div>
-            <div>This is the end</div>
-            <div>This is the end</div>
-            <div>This is the end</div>
-            <div>This is the end</div>
-            <div>This is the end</div>
-            <div>This is the end</div>
-            <div>This is the end</div>
           </div>
         </div>
       )}

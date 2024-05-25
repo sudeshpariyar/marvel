@@ -4,10 +4,12 @@ import React from "react";
 
 const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <main className="min-h-dvh flex flex-col">
+    <main className="min-h-screen flex flex-col">
       <Header />
-      {children}
-      <Footer />
+      <div className="flex flex-col gap-10">
+        {children}
+        <Footer />
+      </div>
     </main>
   );
 };

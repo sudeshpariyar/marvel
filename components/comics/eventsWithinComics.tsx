@@ -32,12 +32,12 @@ const EventsWithinComics = ({ comicTitle, comicId }: IEventsWithinComics) => {
     } catch (error) {
       console.log(error);
     }
-  }, [resultLimit, currentPage, eventName, comicId, listEvents]);
+  }, [resultLimit, currentPage, eventName, comicId]);
   if (loading) {
     return <div className="mt-5"> Loading...</div>;
   }
   return (
-    <div>
+    <>
       <CustomShowHide
         list={listEvents}
         setList={setListEvents}
@@ -53,7 +53,7 @@ const EventsWithinComics = ({ comicTitle, comicId }: IEventsWithinComics) => {
           setEventName={setEventName}
         />
       )}
-    </div>
+    </>
   );
 };
 

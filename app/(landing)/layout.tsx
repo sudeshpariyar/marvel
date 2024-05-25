@@ -6,8 +6,10 @@ const LandingLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <main>
       <Header />
-      {children}
-      <Footer />
+      <div className="flex flex-col gap-10">
+        {children}
+        <Footer />
+      </div>
     </main>
   );
 };

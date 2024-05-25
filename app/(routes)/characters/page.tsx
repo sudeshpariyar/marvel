@@ -28,7 +28,7 @@ const CharacterPage = () => {
     return <div className="h-dvh">Loading...</div>;
   }
   return (
-    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 my-10">
+    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 mt-10">
       <CusotmCharacter
         allCharacters={allCharacters}
         currentPage={currentPage}

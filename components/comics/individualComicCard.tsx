@@ -45,7 +45,7 @@ const IndividualComic = ({ comic }: { comic: IComic }) => {
                       width={50}
                       height={50}
                       unoptimized
-                      className="object-cover object-bottom h-full w-full"
+                      className="object-cover object-bottom h-full w-full transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                       priority
                     />
                   ))}
@@ -60,7 +60,7 @@ const IndividualComic = ({ comic }: { comic: IComic }) => {
                 width={50}
                 height={50}
                 unoptimized
-                className="object-cover object-bottom h-full w-full"
+                className="object-cover object-bottom h-full w-full transition-shadow duration-300 ease-in-out hover:shadow-lg hover:shadow-black/30"
                 priority
               />
             )}

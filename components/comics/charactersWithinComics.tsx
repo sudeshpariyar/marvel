@@ -2,14 +2,25 @@ import React, { useEffect, useState } from "react";
 import { IAllCharacters } from "@/types/characters";
 import CusotmCharacter from "../characters/cusotmCharacter";
 import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
+import CustomShowHide from "../customShowHide";
 
-const CharactersWithinComics = ({ comicId }: { comicId: number }) => {
+interface ICharacterWithInComics {
+  comicId: number;
+  comicTitle: string;
+}
+
+const CharactersWithinComics = ({
+  comicId,
+  comicTitle,
+}: ICharacterWithInComics) => {
   const [allCharactersInComics, setAllCharacterInComics] =
     useState<IAllCharacters>();
   const [currentPage, setCurrentPage] = useState(0);
   const [resultLimit, setResultLimit] = useState(10);
   const [characterName, setCharacterName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [characterList, setCharacterList] = useState(false);
+
   useEffect(() => {
     try {
       setLoading(true);
@@ -31,8 +42,13 @@ const CharactersWithinComics = ({ comicId }: { comicId: number }) => {
     return <div className="mt-5">Loading...</div>;
   }
   return (
-    <div className=" mt-5">
-      {allCharactersInComics?.results.length ? (
+    <>
+      <CustomShowHide
+        list={characterList}
+        setList={setCharacterList}
+        description={`Characters featuring in ${comicTitle}.`}
+      />
+      {characterList && (
         <CusotmCharacter
           allCharacters={allCharactersInComics}
           currentPage={currentPage}
@@ -41,10 +57,8 @@ const CharactersWithinComics = ({ comicId }: { comicId: number }) => {
           setResultLimit={setResultLimit}
           setCharacterName={setCharacterName}
         />
-      ) : (
-        <div className="text-gray-500 ml-10">No Characters found.</div>
       )}
-    </div>
+    </>
   );
 };
 

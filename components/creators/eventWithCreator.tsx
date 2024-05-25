@@ -1,54 +1,56 @@
 import React, { useEffect, useState } from "react";
+import CustomShowHide from "../customShowHide";
+import { getDataFromCreatorId } from "@/helperApiCallFunctions/creator";
 import { IAllEvents } from "@/types/events";
 import CustomEvent from "../events/customEvent";
-import { getDataFromCharacterId } from "@/helperApiCallFunctions/character";
-import CustomShowHide from "../customShowHide";
 
-interface IEventsWithCharacterProps {
-  characterId: number;
-  characterName: string;
+interface IEventWithCreator {
+  creatorName: string;
+  creatorId: number;
 }
-const EventsWithCharacter = ({
-  characterId,
-  characterName,
-}: IEventsWithCharacterProps) => {
-  const [allEventsWithCharacter, setAllEventsWithCharacter] =
+
+const EventWithCreator = ({ creatorName, creatorId }: IEventWithCreator) => {
+  const [allEventsWithCreator, setAllEventsWithCreator] =
     useState<IAllEvents>();
+  const [listEvent, setListEvent] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [eventName, setEventName] = useState("");
-  const [showEventList, setShowEventList] = useState(false);
+
+  const [resultLimit, setResultLimit] = useState(10);
+
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromCharacterId({
-        characterId,
+      getDataFromCreatorId({
+        creatorId,
         resultLimit,
         currentPage,
         eventName,
         path: "events",
       }).then((response) => {
+        console.log("ecents in creator", response);
         setLoading(false);
-        setAllEventsWithCharacter(response);
+        setAllEventsWithCreator(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [resultLimit, currentPage, eventName, characterId]);
+  }, [creatorId, currentPage, eventName, resultLimit]);
+
   if (loading) {
     return <div className="mt-5"> Loading...</div>;
   }
   return (
     <>
       <CustomShowHide
-        list={showEventList}
-        setList={setShowEventList}
-        description={`Events featuring ${characterName}`}
+        list={listEvent}
+        setList={setListEvent}
+        description={`Events in which the work of a ${creatorName} appears`}
       />
-      {showEventList && (
+      {listEvent && (
         <CustomEvent
-          allEvents={allEventsWithCharacter}
+          allEvents={allEventsWithCreator}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           resultLimit={resultLimit}
@@ -60,4 +62,4 @@ const EventsWithCharacter = ({
   );
 };
 
-export default EventsWithCharacter;
+export default EventWithCreator;

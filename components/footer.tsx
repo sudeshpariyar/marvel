@@ -6,6 +6,8 @@ const Footer = () => {
       <div className="text-2xl font-bold text-red-700">Marvel</div>
       <div>Characters</div>
       <div>Comics</div>
+      <div>Events</div>
+      <div>Creators</div>
     </footer>
   );
 };

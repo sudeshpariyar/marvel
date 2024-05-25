@@ -7,6 +7,7 @@ import CustomImageAndDescription from "@/components/customImageAndDescription";
 import { getIndividualEvent } from "@/helperApiCallFunctions/events";
 import ComicsWithinEvent from "@/components/events/comicsWithinEvent";
 import CustomBreakPoint from "@/components/customBreakPoint";
+import CreatorsOfEvents from "@/components/events/creatorsOfEvents";
 
 const IndividualEventPage = () => {
   const params = useParams();
@@ -27,7 +28,7 @@ const IndividualEventPage = () => {
     }
   }, [params.id]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <>
@@ -46,6 +47,10 @@ const IndividualEventPage = () => {
                 eventTitle={individualEvent.title}
               />
               <ComicsWithinEvent
+                eventId={params.id as unknown as number}
+                eventTitle={individualEvent.title}
+              />
+              <CreatorsOfEvents
                 eventId={params.id as unknown as number}
                 eventTitle={individualEvent.title}
               />

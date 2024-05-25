@@ -1,45 +1,48 @@
 "use client";
-import { IAllComics } from "@/types/comics";
 import React, { useEffect, useState } from "react";
-import CustomComic from "@/components/comics/customComic";
-import { getAllComics } from "@/helperApiCallFunctions/comics";
 import CustomBreakPoint from "@/components/customBreakPoint";
+import CustomSeries from "@/components/series/customSeries";
+import { getAllSeries } from "@/helperApiCallFunctions/series";
+import { IAllSeries } from "@/types/series";
 
-const ComicsPage = () => {
-  const [allComics, setAllComics] = useState<IAllComics>();
+const SeriesPage = () => {
+  const [allSeries, setAllSeries] = useState<IAllSeries>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
-  const [comicName, setComicName] = useState("");
+  const [seriesName, setSeriesName] = useState("");
 
   useEffect(() => {
     try {
       setLoading(true);
-      getAllComics({ resultLimit, currentPage, comicName }).then((response) => {
-        setAllComics(response);
-        setLoading(false);
-      });
+      getAllSeries({ resultLimit, currentPage, seriesName }).then(
+        (response) => {
+          console.log(response);
+          setLoading(false);
+          setAllSeries(response);
+        }
+      );
     } catch (error) {
       console.log(error);
     }
-  }, [resultLimit, currentPage, comicName]);
+  }, [currentPage, resultLimit, seriesName]);
   if (loading) {
     return <div>Loading...</div>;
   }
   return (
     <CustomBreakPoint>
       <div className="mt-10">
-        <CustomComic
-          allComics={allComics}
+        <CustomSeries
+          allSeries={allSeries}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
           resultLimit={resultLimit}
           setResultLimit={setResultLimit}
-          setComicName={setComicName}
+          setSeriesName={setSeriesName}
         />
       </div>
     </CustomBreakPoint>
   );
 };
 
-export default ComicsPage;
+export default SeriesPage;

@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import axios from "@/lib/axios";
 import { IAllCharacters } from "@/types/characters";
 import CusotmCharacter from "../characters/cusotmCharacter";
 import { getDataFromEventId } from "@/helperApiCallFunctions/events";
@@ -41,7 +40,7 @@ const CharactersWithinEvent = ({
     }
   }, [currentPage, eventId, resultLimit, characterName]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <>

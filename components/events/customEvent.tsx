@@ -8,6 +8,8 @@ import { Input } from "../ui/input";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CustomNoResultFound from "../customNoResultFound";
+
 const formSchema = z.object({
   eventName: z.string(),
 });
@@ -69,7 +71,7 @@ const CustomEvent = ({
             />
           </div>
         </div>
-        {allEvents?.results.length && (
+        {allEvents?.results.length ? (
           <div className="flex flex-col gap-4">
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {allEvents.results.map((event) => (
@@ -83,6 +85,8 @@ const CustomEvent = ({
               resultLimit={resultLimit}
             />
           </div>
+        ) : (
+          <CustomNoResultFound />
         )}
       </div>
     </>

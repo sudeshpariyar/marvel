@@ -2,11 +2,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { ICharacter } from "@/types/characters";
-import IndividualSeries from "@/components/individualSeries";
-import IndividualStory from "@/components/individualStory";
 import ComicsWithCharacter from "@/components/characters/comicsWithCharacter";
 import CustomImageAndDescription from "@/components/customImageAndDescription";
-import CustomShowHide from "@/components/customShowHide";
 import EventsWithCharacter from "@/components/characters/eventsWithCharacter";
 import { getSingelCharacter } from "@/helperApiCallFunctions/character";
 import CustomBreakPoint from "@/components/customBreakPoint";
@@ -29,7 +26,7 @@ const IndividuaCharacter = () => {
     }
   }, [params.id]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <>

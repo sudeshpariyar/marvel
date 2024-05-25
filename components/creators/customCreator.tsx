@@ -8,6 +8,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
+import CustomNoResultFound from "../customNoResultFound";
 
 const formSchema = z.object({
   creatorName: z.string(),
@@ -71,7 +72,7 @@ const CustomCreator = ({
           </div>
         </div>
 
-        {allCreators?.results.length && (
+        {allCreators?.results.length ? (
           <div className="flex flex-col gap-4">
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {allCreators.results.map((creator) => (
@@ -85,6 +86,8 @@ const CustomCreator = ({
               resultLimit={resultLimit}
             />
           </div>
+        ) : (
+          <CustomNoResultFound />
         )}
       </div>
     </>

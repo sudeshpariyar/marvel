@@ -34,7 +34,7 @@ const ComicsWithinEvent = ({ eventId, eventTitle }: IComicWithEvent) => {
     }
   }, [resultLimit, currentPage, comicName, eventId]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <>

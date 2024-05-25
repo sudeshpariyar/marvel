@@ -3,6 +3,7 @@ import ComicsLandingCard from "@/components/comics/comicsLandingCard";
 import CreatorsLandingCard from "@/components/creators/creatorsLandingCard";
 import CustomBreakPoint from "@/components/customBreakPoint";
 import EventsLandingCard from "@/components/events/eventsLandingCard";
+import SeriesLandigCard from "@/components/series/seriesLandigCard";
 import Image from "next/image";
 import React from "react";
 
@@ -23,6 +24,7 @@ const LandingPage = () => {
           <ComicsLandingCard />
           <EventsLandingCard />
           <CreatorsLandingCard />
+          <SeriesLandigCard />
         </div>
       </CustomBreakPoint>
     </div>

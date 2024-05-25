@@ -7,12 +7,12 @@ import {
   SheetTrigger,
 } from "./ui/sheet";
 
-import { Button } from "./ui/button";
 import { Label } from "./ui/label";
 import {
   Baby,
   BookOpenText,
   CalendarFold,
+  Clapperboard,
   Menu,
   PencilLine,
 } from "lucide-react";
@@ -61,6 +61,13 @@ const FloatingNavBar = () => {
           >
             <PencilLine className="text-red-600" />
             <span className="text-gray-400">Creators</span>
+          </Label>
+          <Label
+            className="flex items-center gap-4"
+            onClick={() => handleRoute("series")}
+          >
+            <Clapperboard className="text-red-600" />
+            <span className="text-gray-400">Series</span>
           </Label>
         </div>
       </SheetContent>

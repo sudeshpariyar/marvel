@@ -8,6 +8,7 @@ import { Input } from "../ui/input";
 import CustomDropDown from "../customDropDown";
 import IndividualCharacterCard from "./individualCharacterCard";
 import CustomPagination from "../customPagination";
+import CustomNoResultFound from "../customNoResultFound";
 
 const formSchema = z.object({
   characterNameStartsWith: z.string(),
@@ -66,7 +67,7 @@ const CusotmCharacter = ({
             />
           </div>
         </div>
-        {allCharacters?.results.length && (
+        {allCharacters?.results.length ? (
           <div className="flex flex-col gap-4">
             <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
               {allCharacters.results.map((character) => (
@@ -83,6 +84,8 @@ const CusotmCharacter = ({
               resultLimit={resultLimit}
             />
           </div>
+        ) : (
+          <CustomNoResultFound />
         )}
       </div>
     </>

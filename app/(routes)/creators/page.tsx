@@ -26,7 +26,7 @@ const CreatorPage = () => {
     }
   }, [resultLimit, currentPage, creatorName]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <CustomBreakPoint>

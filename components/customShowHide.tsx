@@ -15,7 +15,7 @@ const CustomShowHide = ({
   return (
     <div className="flex items-center gap-2">
       <Button onClick={() => setList(!list)}>{list ? "Hide" : "List"}</Button>
-      <span className="text-2xl">{description}.</span>
+      <span className="text-xl text-gray-700">{description}.</span>
     </div>
   );
 };

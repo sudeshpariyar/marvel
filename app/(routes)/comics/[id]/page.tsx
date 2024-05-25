@@ -7,6 +7,7 @@ import CustomImageAndDescription from "@/components/customImageAndDescription";
 import { getSingleComic } from "@/helperApiCallFunctions/comics";
 import EventsWithinComics from "@/components/comics/eventsWithinComics";
 import CustomBreakPoint from "@/components/customBreakPoint";
+import CreatorsWithComics from "@/components/comics/creatorsWithComics";
 
 const IndividualComic = () => {
   const params = useParams();
@@ -27,7 +28,7 @@ const IndividualComic = () => {
     }
   }, [params.id]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <>
@@ -46,6 +47,10 @@ const IndividualComic = () => {
                 comicTitle={individualComic.title}
               />
               <EventsWithinComics
+                comicTitle={individualComic.title}
+                comicId={params.id as unknown as number}
+              />
+              <CreatorsWithComics
                 comicTitle={individualComic.title}
                 comicId={params.id as unknown as number}
               />

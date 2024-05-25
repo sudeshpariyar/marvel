@@ -41,7 +41,7 @@ const CharactersWithinEvent = ({
     }
   }, [currentPage, eventId, resultLimit, characterName]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <>

@@ -24,7 +24,7 @@ const EventsPage = () => {
     }
   }, [resultLimit, currentPage, eventName]);
   if (loading) {
-    return <div className="h-dvh">Loading...</div>;
+    return <div>Loading...</div>;
   }
   return (
     <CustomBreakPoint>

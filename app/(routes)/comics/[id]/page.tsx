@@ -4,14 +4,13 @@ import React, { useEffect, useState } from "react";
 import { IComic } from "@/types/comics";
 import CharactersWithinComics from "@/components/comics/charactersWithinComics";
 import CustomImageAndDescription from "@/components/customImageAndDescription";
-import CustomShowHide from "@/components/customShowHide";
 import { getSingleComic } from "@/helperApiCallFunctions/comics";
 import EventsWithinComics from "@/components/comics/eventsWithinComics";
+import CustomBreakPoint from "@/components/customBreakPoint";
 
 const IndividualComic = () => {
   const params = useParams();
   const [loading, setLoading] = useState(false);
-  // const [characterList, setCharacterList] = useState(false);
   const [individualComic, setIndividualComic] = useState<IComic>();
 
   useEffect(() => {
@@ -40,16 +39,18 @@ const IndividualComic = () => {
             title={individualComic.title}
             description={individualComic.description}
           />
-          <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
-            <CharactersWithinComics
-              comicId={params.id as unknown as number}
-              comicTitle={individualComic.title}
-            />
-            <EventsWithinComics
-              comicTitle={individualComic.title}
-              comicId={params.id as unknown as number}
-            />
-          </div>
+          <CustomBreakPoint>
+            <div className="flex flex-col gap-10">
+              <CharactersWithinComics
+                comicId={params.id as unknown as number}
+                comicTitle={individualComic.title}
+              />
+              <EventsWithinComics
+                comicTitle={individualComic.title}
+                comicId={params.id as unknown as number}
+              />
+            </div>
+          </CustomBreakPoint>
         </div>
       )}
     </>

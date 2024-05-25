@@ -6,6 +6,7 @@ import { ICreator } from "@/types/creator";
 import CustomImageAndDescription from "@/components/customImageAndDescription";
 import ComicsWithCreator from "@/components/creators/comicsWithCreator";
 import EventWithCreator from "@/components/creators/eventWithCreator";
+import CustomBreakPoint from "@/components/customBreakPoint";
 
 const IndividualCreatorPage = () => {
   const params = useParams();
@@ -39,16 +40,18 @@ const IndividualCreatorPage = () => {
             title={individualCreator.fullName}
             description=""
           />
-          <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
-            <ComicsWithCreator
-              creatorName={individualCreator.fullName}
-              creatorId={params.id as unknown as number}
-            />
-            <EventWithCreator
-              creatorName={individualCreator.fullName}
-              creatorId={params.id as unknown as number}
-            />
-          </div>
+          <CustomBreakPoint>
+            <div className="flex flex-col gap-10">
+              <ComicsWithCreator
+                creatorName={individualCreator.fullName}
+                creatorId={params.id as unknown as number}
+              />
+              <EventWithCreator
+                creatorName={individualCreator.fullName}
+                creatorId={params.id as unknown as number}
+              />
+            </div>
+          </CustomBreakPoint>
         </div>
       )}
     </>

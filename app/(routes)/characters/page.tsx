@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { IAllCharacters } from "@/types/characters";
 import CusotmCharacter from "@/components/characters/cusotmCharacter";
 import { getAllCharacters } from "@/helperApiCallFunctions/character";
+import CustomBreakPoint from "@/components/customBreakPoint";
 
 const CharacterPage = () => {
   const [allCharacters, setAllCharacters] = useState<IAllCharacters>();
@@ -28,16 +29,18 @@ const CharacterPage = () => {
     return <div className="h-dvh">Loading...</div>;
   }
   return (
-    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 mt-10">
-      <CusotmCharacter
-        allCharacters={allCharacters}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        resultLimit={resultLimit}
-        setResultLimit={setResultLimit}
-        setCharacterName={setCharacterName}
-      />
-    </div>
+    <CustomBreakPoint>
+      <div className="mt-10">
+        <CusotmCharacter
+          allCharacters={allCharacters}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          resultLimit={resultLimit}
+          setResultLimit={setResultLimit}
+          setCharacterName={setCharacterName}
+        />
+      </div>
+    </CustomBreakPoint>
   );
 };
 

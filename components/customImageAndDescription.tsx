@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import CustomBreakPoint from "./customBreakPoint";
 
 interface ICustomImageAndDescriptionProps {
   thumbNailPath: string;
@@ -25,14 +26,14 @@ const CustomImageAndDescription = ({
           priority
         />
       </div>
-      <div className="sm:px-4 md:px-16 lg:px-64 xl:124">
+      <CustomBreakPoint>
         <div className="text-5xl font-bold">{title}</div>
         {description && (
           <div className="text-lg text-gray-500 pt-4 leading-1.5">
             {description}
           </div>
         )}
-      </div>
+      </CustomBreakPoint>
     </div>
   );
 };

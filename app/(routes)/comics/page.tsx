@@ -3,6 +3,7 @@ import { IAllComics } from "@/types/comics";
 import React, { useEffect, useState } from "react";
 import CustomComic from "@/components/comics/customComic";
 import { getAllComics } from "@/helperApiCallFunctions/comics";
+import CustomBreakPoint from "@/components/customBreakPoint";
 
 const ComicsPage = () => {
   const [allComics, setAllComics] = useState<IAllComics>();
@@ -26,16 +27,18 @@ const ComicsPage = () => {
     return <div className="h-dvh">Loading...</div>;
   }
   return (
-    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 mt-10">
-      <CustomComic
-        allComics={allComics}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        resultLimit={resultLimit}
-        setResultLimit={setResultLimit}
-        setComicName={setComicName}
-      />
-    </div>
+    <CustomBreakPoint>
+      <div className="mt-10">
+        <CustomComic
+          allComics={allComics}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          resultLimit={resultLimit}
+          setResultLimit={setResultLimit}
+          setComicName={setComicName}
+        />
+      </div>
+    </CustomBreakPoint>
   );
 };
 

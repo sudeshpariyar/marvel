@@ -6,6 +6,7 @@ import CharactersWithinEvent from "@/components/events/charactersWithinEvent";
 import CustomImageAndDescription from "@/components/customImageAndDescription";
 import { getIndividualEvent } from "@/helperApiCallFunctions/events";
 import ComicsWithinEvent from "@/components/events/comicsWithinEvent";
+import CustomBreakPoint from "@/components/customBreakPoint";
 
 const IndividualEventPage = () => {
   const params = useParams();
@@ -38,16 +39,18 @@ const IndividualEventPage = () => {
             title={individualEvent.title}
             description={individualEvent.description}
           />
-          <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
-            <CharactersWithinEvent
-              eventId={params.id as unknown as number}
-              eventTitle={individualEvent.title}
-            />
-            <ComicsWithinEvent
-              eventId={params.id as unknown as number}
-              eventTitle={individualEvent.title}
-            />
-          </div>
+          <CustomBreakPoint>
+            <div className="flex flex-col gap-10">
+              <CharactersWithinEvent
+                eventId={params.id as unknown as number}
+                eventTitle={individualEvent.title}
+              />
+              <ComicsWithinEvent
+                eventId={params.id as unknown as number}
+                eventTitle={individualEvent.title}
+              />
+            </div>
+          </CustomBreakPoint>
         </div>
       )}
     </>

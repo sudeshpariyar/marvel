@@ -9,6 +9,7 @@ import CustomImageAndDescription from "@/components/customImageAndDescription";
 import CustomShowHide from "@/components/customShowHide";
 import EventsWithCharacter from "@/components/characters/eventsWithCharacter";
 import { getSingelCharacter } from "@/helperApiCallFunctions/character";
+import CustomBreakPoint from "@/components/customBreakPoint";
 
 const IndividuaCharacter = () => {
   const params = useParams();
@@ -40,16 +41,18 @@ const IndividuaCharacter = () => {
             title={individualCharacter.name}
             description={individualCharacter.description}
           />
-          <div className="sm:px-4 md:px-16 lg:px-64 xl:124 flex flex-col gap-10">
-            <ComicsWithCharacter
-              characterId={params.id as unknown as number}
-              characterName={individualCharacter.name}
-            />
-            <EventsWithCharacter
-              characterId={params.id as unknown as number}
-              characterName={individualCharacter.name}
-            />
-          </div>
+          <CustomBreakPoint>
+            <div className="flex flex-col gap-10">
+              <ComicsWithCharacter
+                characterId={params.id as unknown as number}
+                characterName={individualCharacter.name}
+              />
+              <EventsWithCharacter
+                characterId={params.id as unknown as number}
+                characterName={individualCharacter.name}
+              />
+            </div>
+          </CustomBreakPoint>
         </div>
       )}
     </>

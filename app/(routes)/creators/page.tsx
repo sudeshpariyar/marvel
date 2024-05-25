@@ -1,5 +1,6 @@
 "use client";
 import CustomCreator from "@/components/creators/customCreator";
+import CustomBreakPoint from "@/components/customBreakPoint";
 import { getAllCreators } from "@/helperApiCallFunctions/creator";
 import { IAllCreators } from "@/types/creator";
 import React, { useEffect, useState } from "react";
@@ -28,16 +29,18 @@ const CreatorPage = () => {
     return <div className="h-dvh">Loading...</div>;
   }
   return (
-    <div className="sm:px-4 md:px-16 lg:px-64 xl:124 mt-10">
-      <CustomCreator
-        allCreators={allCreators}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-        resultLimit={resultLimit}
-        setResultLimit={setResultLimit}
-        setCreatorName={setCreatorName}
-      />
-    </div>
+    <CustomBreakPoint>
+      <div className="mt-10">
+        <CustomCreator
+          allCreators={allCreators}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          resultLimit={resultLimit}
+          setResultLimit={setResultLimit}
+          setCreatorName={setCreatorName}
+        />
+      </div>
+    </CustomBreakPoint>
   );
 };
 

@@ -26,9 +26,7 @@ const SeriesPage = () => {
       console.log(error);
     }
   }, [currentPage, resultLimit, seriesName]);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <CustomBreakPoint>
       <div className="mt-10">
@@ -39,6 +37,7 @@ const SeriesPage = () => {
           resultLimit={resultLimit}
           setResultLimit={setResultLimit}
           setSeriesName={setSeriesName}
+          loading={loading}
         />
       </div>
     </CustomBreakPoint>

@@ -9,6 +9,7 @@ import CustomDropDown from "../customDropDown";
 import IndividualCharacterCard from "./individualCharacterCard";
 import CustomPagination from "../customPagination";
 import CustomNoResultFound from "../customNoResultFound";
+import CustomLoading from "../customLoading";
 
 const formSchema = z.object({
   characterNameStartsWith: z.string(),
@@ -21,6 +22,7 @@ interface ICustomCharacterProps {
   resultLimit: number;
   setResultLimit: (value: number) => void;
   setCharacterName: (value: string) => void;
+  loading: boolean;
 }
 
 const CusotmCharacter = ({
@@ -30,6 +32,7 @@ const CusotmCharacter = ({
   resultLimit,
   setResultLimit,
   setCharacterName,
+  loading,
 }: ICustomCharacterProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -67,25 +70,31 @@ const CusotmCharacter = ({
             />
           </div>
         </div>
-        {allCharacters?.results.length ? (
-          <div className="flex flex-col gap-4">
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {allCharacters.results.map((character) => (
-                <IndividualCharacterCard
-                  key={character.id}
-                  character={character}
-                />
-              ))}
-            </div>
-            <CustomPagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalResult={allCharacters?.total as number}
-              resultLimit={resultLimit}
-            />
-          </div>
+        {loading ? (
+          <CustomLoading />
         ) : (
-          <CustomNoResultFound />
+          <>
+            {allCharacters?.results.length ? (
+              <div className="flex flex-col gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {allCharacters.results.map((character) => (
+                    <IndividualCharacterCard
+                      key={character.id}
+                      character={character}
+                    />
+                  ))}
+                </div>
+                <CustomPagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalResult={allCharacters?.total as number}
+                  resultLimit={resultLimit}
+                />
+              </div>
+            ) : (
+              <CustomNoResultFound />
+            )}
+          </>
         )}
       </div>
     </>

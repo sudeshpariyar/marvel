@@ -7,6 +7,9 @@ import CustomImageAndDescription from "@/components/customImageAndDescription";
 import ComicsWithCreator from "@/components/creators/comicsWithCreator";
 import EventWithCreator from "@/components/creators/eventWithCreator";
 import CustomBreakPoint from "@/components/customBreakPoint";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import CustomLoading from "@/components/customLoading";
 
 const IndividualCreatorPage = () => {
   const params = useParams();
@@ -27,7 +30,7 @@ const IndividualCreatorPage = () => {
     }
   }, [params.id]);
   if (loading) {
-    return <div>Loading...</div>;
+    return <CustomLoading />;
   }
 
   return (
@@ -41,16 +44,26 @@ const IndividualCreatorPage = () => {
             description=""
           />
           <CustomBreakPoint>
-            <div className="flex flex-col gap-10">
-              <ComicsWithCreator
-                creatorName={individualCreator.fullName}
-                creatorId={params.id as unknown as number}
-              />
-              <EventWithCreator
-                creatorName={individualCreator.fullName}
-                creatorId={params.id as unknown as number}
-              />
-            </div>
+            <Tabs defaultValue="comics">
+              <TabsList>
+                <TabsTrigger value="comics">Comics</TabsTrigger>
+                <TabsTrigger value="events">Events</TabsTrigger>
+              </TabsList>
+              <TabsContent value="comics">
+                <Card className="p-4">
+                  <ComicsWithCreator
+                    creatorId={params.id as unknown as number}
+                  />
+                </Card>
+              </TabsContent>
+              <TabsContent value="events">
+                <Card className="p-4">
+                  <EventWithCreator
+                    creatorId={params.id as unknown as number}
+                  />
+                </Card>
+              </TabsContent>
+            </Tabs>
           </CustomBreakPoint>
         </div>
       )}

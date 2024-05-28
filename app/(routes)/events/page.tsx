@@ -23,9 +23,7 @@ const EventsPage = () => {
       console.log(error);
     }
   }, [resultLimit, currentPage, eventName]);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <CustomBreakPoint>
       <div className="mt-10">
@@ -36,6 +34,7 @@ const EventsPage = () => {
           resultLimit={resultLimit}
           setResultLimit={setResultLimit}
           setEventName={setEventName}
+          loading={loading}
         />
       </div>
     </CustomBreakPoint>

@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomNoResultFound from "../customNoResultFound";
+import CustomLoading from "../customLoading";
 
 const formSchema = z.object({
   eventName: z.string(),
@@ -21,6 +22,7 @@ interface ICustomEventProps {
   resultLimit: number;
   setResultLimit: (value: number) => void;
   setEventName: (value: string) => void;
+  loading: boolean;
 }
 
 const CustomEvent = ({
@@ -30,6 +32,7 @@ const CustomEvent = ({
   resultLimit,
   setResultLimit,
   setEventName,
+  loading,
 }: ICustomEventProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,22 +74,28 @@ const CustomEvent = ({
             />
           </div>
         </div>
-        {allEvents?.results.length ? (
-          <div className="flex flex-col gap-4">
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {allEvents.results.map((event) => (
-                <IndividualEventCard key={event.id} event={event} />
-              ))}
-            </div>
-            <CustomPagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalResult={allEvents.total as unknown as number}
-              resultLimit={resultLimit}
-            />
-          </div>
+        {loading ? (
+          <CustomLoading />
         ) : (
-          <CustomNoResultFound />
+          <>
+            {allEvents?.results.length ? (
+              <div className="flex flex-col gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {allEvents.results.map((event) => (
+                    <IndividualEventCard key={event.id} event={event} />
+                  ))}
+                </div>
+                <CustomPagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalResult={allEvents.total as unknown as number}
+                  resultLimit={resultLimit}
+                />
+              </div>
+            ) : (
+              <CustomNoResultFound />
+            )}
+          </>
         )}
       </div>
     </>

@@ -25,9 +25,7 @@ const CreatorPage = () => {
       console.log(error);
     }
   }, [resultLimit, currentPage, creatorName]);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <CustomBreakPoint>
       <div className="mt-10">
@@ -38,6 +36,7 @@ const CreatorPage = () => {
           resultLimit={resultLimit}
           setResultLimit={setResultLimit}
           setCreatorName={setCreatorName}
+          loading={loading}
         />
       </div>
     </CustomBreakPoint>

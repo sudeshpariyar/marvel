@@ -23,9 +23,7 @@ const ComicsPage = () => {
       console.log(error);
     }
   }, [resultLimit, currentPage, comicName]);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <CustomBreakPoint>
       <div className="mt-10">
@@ -36,6 +34,7 @@ const ComicsPage = () => {
           resultLimit={resultLimit}
           setResultLimit={setResultLimit}
           setComicName={setComicName}
+          loading={loading}
         />
       </div>
     </CustomBreakPoint>

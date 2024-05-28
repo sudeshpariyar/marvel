@@ -25,9 +25,7 @@ const CharacterPage = () => {
       console.log(error);
     }
   }, [currentPage, resultLimit, characterName]);
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+
   return (
     <CustomBreakPoint>
       <div className="mt-10">
@@ -38,6 +36,7 @@ const CharacterPage = () => {
           resultLimit={resultLimit}
           setResultLimit={setResultLimit}
           setCharacterName={setCharacterName}
+          loading={loading}
         />
       </div>
     </CustomBreakPoint>

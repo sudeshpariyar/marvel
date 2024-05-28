@@ -9,6 +9,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import CustomNoResultFound from "../customNoResultFound";
+import CustomLoading from "../customLoading";
 
 const formSchema = z.object({
   creatorName: z.string(),
@@ -21,6 +22,7 @@ interface ICustomCreatorProps {
   resultLimit: number;
   setResultLimit: (value: number) => void;
   setCreatorName: (value: string) => void;
+  loading: boolean;
 }
 
 const CustomCreator = ({
@@ -30,6 +32,7 @@ const CustomCreator = ({
   resultLimit,
   setResultLimit,
   setCreatorName,
+  loading,
 }: ICustomCreatorProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,23 +74,28 @@ const CustomCreator = ({
             />
           </div>
         </div>
-
-        {allCreators?.results.length ? (
-          <div className="flex flex-col gap-4">
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {allCreators.results.map((creator) => (
-                <IndividualCreatorCard key={creator.id} creator={creator} />
-              ))}
-            </div>
-            <CustomPagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalResult={allCreators.total as unknown as number}
-              resultLimit={resultLimit}
-            />
-          </div>
+        {loading ? (
+          <CustomLoading />
         ) : (
-          <CustomNoResultFound />
+          <>
+            {allCreators?.results.length ? (
+              <div className="flex flex-col gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {allCreators.results.map((creator) => (
+                    <IndividualCreatorCard key={creator.id} creator={creator} />
+                  ))}
+                </div>
+                <CustomPagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalResult={allCreators.total as unknown as number}
+                  resultLimit={resultLimit}
+                />
+              </div>
+            ) : (
+              <CustomNoResultFound />
+            )}
+          </>
         )}
       </div>
     </>

@@ -7,6 +7,9 @@ import CustomImageAndDescription from "@/components/customImageAndDescription";
 import EventsWithCharacter from "@/components/characters/eventsWithCharacter";
 import { getSingelCharacter } from "@/helperApiCallFunctions/character";
 import CustomBreakPoint from "@/components/customBreakPoint";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card } from "@/components/ui/card";
+import CustomLoading from "@/components/customLoading";
 
 const IndividuaCharacter = () => {
   const params = useParams();
@@ -26,12 +29,12 @@ const IndividuaCharacter = () => {
     }
   }, [params.id]);
   if (loading) {
-    return <div>Loading...</div>;
+    return <CustomLoading />;
   }
   return (
     <>
       {individualCharacter && (
-        <div className="flex flex-col gap-10">
+        <div className="flex flex-col">
           <CustomImageAndDescription
             thumbNailPath={individualCharacter.thumbnail.path}
             thumbnailExtension={individualCharacter.thumbnail.extension}
@@ -39,16 +42,26 @@ const IndividuaCharacter = () => {
             description={individualCharacter.description}
           />
           <CustomBreakPoint>
-            <div className="flex flex-col gap-10">
-              <ComicsWithCharacter
-                characterId={params.id as unknown as number}
-                characterName={individualCharacter.name}
-              />
-              <EventsWithCharacter
-                characterId={params.id as unknown as number}
-                characterName={individualCharacter.name}
-              />
-            </div>
+            <Tabs defaultValue="comics">
+              <TabsList>
+                <TabsTrigger value="comics">Comics</TabsTrigger>
+                <TabsTrigger value="events">Events</TabsTrigger>
+              </TabsList>
+              <TabsContent value="comics">
+                <Card className="p-4">
+                  <ComicsWithCharacter
+                    characterId={params.id as unknown as number}
+                  />
+                </Card>
+              </TabsContent>
+              <TabsContent value="events">
+                <Card className="p-4">
+                  <EventsWithCharacter
+                    characterId={params.id as unknown as number}
+                  />
+                </Card>
+              </TabsContent>
+            </Tabs>
           </CustomBreakPoint>
         </div>
       )}

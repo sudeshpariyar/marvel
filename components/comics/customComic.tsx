@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomNoResultFound from "../customNoResultFound";
+import CustomLoading from "../customLoading";
 
 interface ICustomComicProps {
   allComics?: IAllComics;
@@ -17,6 +18,7 @@ interface ICustomComicProps {
   resultLimit: number;
   setResultLimit: (value: number) => void;
   setComicName: (value: string) => void;
+  loading: boolean;
 }
 
 const formSchema = z.object({
@@ -30,6 +32,7 @@ const CustomComic = ({
   resultLimit,
   setResultLimit,
   setComicName,
+  loading,
 }: ICustomComicProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -69,22 +72,28 @@ const CustomComic = ({
             />
           </div>
         </div>
-        {allComics?.results.length ? (
-          <div className="flex flex-col gap-4">
-            <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-              {allComics.results.map((comic) => (
-                <IndividualComic key={comic.id} comic={comic} />
-              ))}
-            </div>
-            <CustomPagination
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-              totalResult={allComics?.total as unknown as number}
-              resultLimit={resultLimit}
-            />
-          </div>
+        {loading ? (
+          <CustomLoading />
         ) : (
-          <CustomNoResultFound />
+          <>
+            {allComics?.results.length ? (
+              <div className="flex flex-col gap-4">
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {allComics.results.map((comic) => (
+                    <IndividualComic key={comic.id} comic={comic} />
+                  ))}
+                </div>
+                <CustomPagination
+                  currentPage={currentPage}
+                  setCurrentPage={setCurrentPage}
+                  totalResult={allComics?.total as unknown as number}
+                  resultLimit={resultLimit}
+                />
+              </div>
+            ) : (
+              <CustomNoResultFound />
+            )}
+          </>
         )}
       </div>
     </>

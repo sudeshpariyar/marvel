@@ -9,6 +9,7 @@ import { Input } from "../ui/input";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import CustomLoading from "../customLoading";
 
 interface ICustomSeriesProps {
   allSeries?: IAllSeries;
@@ -17,6 +18,7 @@ interface ICustomSeriesProps {
   resultLimit: number;
   setResultLimit: (value: number) => void;
   setSeriesName: (value: string) => void;
+  loading: boolean;
 }
 const formSchema = z.object({
   seriesName: z.string(),
@@ -29,6 +31,7 @@ const CustomSeries = ({
   currentPage,
   setCurrentPage,
   setSeriesName,
+  loading,
 }: ICustomSeriesProps) => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,22 +73,28 @@ const CustomSeries = ({
           />
         </div>
       </div>
-      {allSeries?.results.length ? (
-        <div className="flex flex-col gap-4">
-          <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-            {allSeries.results.map((series) => (
-              <IndividualSeriesCard key={series.id} series={series} />
-            ))}
-          </div>
-          <CustomPagination
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            totalResult={allSeries.total as unknown as number}
-            resultLimit={resultLimit}
-          />
-        </div>
+      {loading ? (
+        <CustomLoading />
       ) : (
-        <CustomNoResultFound />
+        <>
+          {allSeries?.results.length ? (
+            <div className="flex flex-col gap-4">
+              <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                {allSeries.results.map((series) => (
+                  <IndividualSeriesCard key={series.id} series={series} />
+                ))}
+              </div>
+              <CustomPagination
+                currentPage={currentPage}
+                setCurrentPage={setCurrentPage}
+                totalResult={allSeries.total as unknown as number}
+                resultLimit={resultLimit}
+              />
+            </div>
+          ) : (
+            <CustomNoResultFound />
+          )}
+        </>
       )}
     </div>
   );

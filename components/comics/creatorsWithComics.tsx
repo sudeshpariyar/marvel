@@ -4,20 +4,19 @@ import CustomShowHide from "../customShowHide";
 import { IAllCreators } from "@/types/creator";
 import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
 import CustomCreator from "../creators/customCreator";
+import CustomLoading from "../customLoading";
 
 interface ICreatorsWithinComics {
-  comicTitle: string;
   comicId: number;
 }
 
-const CreatorsWithComics = ({ comicTitle, comicId }: ICreatorsWithinComics) => {
+const CreatorsWithComics = ({ comicId }: ICreatorsWithinComics) => {
   const [allCreatorsWithComics, setAllCreatorsWithComics] =
     useState<IAllCreators>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [creatorName, setCreatorName] = useState("");
-  const [creatorList, setCreatorList] = useState(false);
   useEffect(() => {
     try {
       setLoading(true);
@@ -37,26 +36,18 @@ const CreatorsWithComics = ({ comicTitle, comicId }: ICreatorsWithinComics) => {
     }
   }, [comicId, creatorName, currentPage, resultLimit]);
   if (loading) {
-    return <div>Loading...</div>;
+    return <CustomLoading />;
   }
   return (
-    <>
-      <CustomShowHide
-        list={creatorList}
-        setList={setCreatorList}
-        description={`Creators whose work appear in ${comicTitle}`}
-      />
-      {creatorList && (
-        <CustomCreator
-          allCreators={allCreatorsWithComics}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          resultLimit={resultLimit}
-          setResultLimit={setResultLimit}
-          setCreatorName={setCreatorName}
-        />
-      )}
-    </>
+    <CustomCreator
+      allCreators={allCreatorsWithComics}
+      currentPage={currentPage}
+      setCurrentPage={setCurrentPage}
+      resultLimit={resultLimit}
+      setResultLimit={setResultLimit}
+      setCreatorName={setCreatorName}
+      loading={loading}
+    />
   );
 };
 

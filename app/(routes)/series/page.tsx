@@ -17,7 +17,6 @@ const SeriesPage = () => {
       setLoading(true);
       getAllSeries({ resultLimit, currentPage, seriesName }).then(
         (response) => {
-          console.log(response);
           setLoading(false);
           setAllSeries(response);
         }

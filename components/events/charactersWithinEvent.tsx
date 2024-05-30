@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { IAllCharacters } from "@/types/characters";
 import CusotmCharacter from "../characters/cusotmCharacter";
 import { getDataFromEventId } from "@/helperApiCallFunctions/events";
-import CustomLoading from "../customLoading";
 
 interface ICharacterWithEvent {
   eventId: number;
@@ -14,7 +13,6 @@ const CharactersWithinEvent = ({ eventId }: ICharacterWithEvent) => {
     useState<IAllCharacters>();
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
-
   const [resultLimit, setResultLimit] = useState(10);
   const [characterName, setCharacterName] = useState("");
   useEffect(() => {

@@ -1,42 +1,40 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import { getDataFromSeriesId } from "@/helperApiCallFunctions/series";
 import { IAllCreators } from "@/types/creator";
-import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
+import React, { useEffect, useState } from "react";
 import CustomCreator from "../creators/customCreator";
 
-interface ICreatorsWithinComics {
-  comicId: number;
+interface ICreatorsWithSeriesProps {
+  seriesId: number;
 }
 
-const CreatorsWithComics = ({ comicId }: ICreatorsWithinComics) => {
-  const [allCreatorsWithComics, setAllCreatorsWithComics] =
+const CreatorsWithSeries = ({ seriesId }: ICreatorsWithSeriesProps) => {
+  const [allCreatorsWhitSeries, setAllCreatorsWhitSeries] =
     useState<IAllCreators>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [creatorName, setCreatorName] = useState("");
+
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromComicId({
-        comicId,
+      getDataFromSeriesId({
+        seriesId,
         currentPage,
         resultLimit,
         creatorName,
         path: "creators",
       }).then((response) => {
-        console.log("all creators in comics", response);
         setLoading(false);
-        setAllCreatorsWithComics(response);
+        setAllCreatorsWhitSeries(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [comicId, creatorName, currentPage, resultLimit]);
-
+  }, [creatorName, currentPage, resultLimit, seriesId]);
   return (
     <CustomCreator
-      allCreators={allCreatorsWithComics}
+      allCreators={allCreatorsWhitSeries}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
@@ -47,4 +45,4 @@ const CreatorsWithComics = ({ comicId }: ICreatorsWithinComics) => {
   );
 };
 
-export default CreatorsWithComics;
+export default CreatorsWithSeries;

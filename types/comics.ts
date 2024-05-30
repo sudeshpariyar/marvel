@@ -10,92 +10,92 @@ import {
 } from "./common";
 
 export interface IComic {
-  id: "int";
-  digitalId: "int";
-  title: "string";
+  id: number;
+  digitalId: number;
+  title: string;
   issueNumber: "double";
-  variantDescription: "string";
-  description: "string";
+  variantDescription: string;
+  description: string;
   modified: "Date";
-  isbn: "string";
-  upc: "string";
-  diamondCode: "string";
-  ean: "string";
-  issn: "string";
-  format: "string";
-  pageCount: "int";
+  isbn: string;
+  upc: string;
+  diamondCode: string;
+  ean: string;
+  issn: string;
+  format: string;
+  pageCount: number;
   textObjects: [
     {
-      type: "string";
-      language: "string";
-      text: "string";
+      type: string;
+      language: string;
+      text: string;
     }
   ];
-  resourceURI: "string";
+  resourceURI: string;
   urls: IUrls[];
   series: ISeriesItem;
   variants: [
     {
-      resourceURI: "string";
-      name: "string";
+      resourceURI: string;
+      name: string;
     }
   ];
   collections: [
     {
-      resourceURI: "string";
-      name: "string";
+      resourceURI: string;
+      name: string;
     }
   ];
   collectedIssues: [
     {
-      resourceURI: "string";
-      name: "string";
+      resourceURI: string;
+      name: string;
     }
   ];
   dates: [
     {
-      type: "string";
+      type: string;
       date: "Date";
     }
   ];
   prices: [
     {
-      type: "string";
+      type: string;
       price: "float";
     }
   ];
   thumbnail: IThumbnail;
   images: IImage[];
   creators: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualCreator[];
   };
   characters: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualCharacter[];
   };
   stories: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualStory[];
   };
   events: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualEvent[];
   };
 }
 
 export interface IAllComics {
-  offset: "int";
-  limit: "int";
-  total: "int";
-  count: "int";
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
   results: IComic[];
 }

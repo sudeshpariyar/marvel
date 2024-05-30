@@ -1,18 +1,18 @@
-import { IAllComics } from "@/types/comics";
-import React, { useEffect, useState } from "react";
-import CustomComic from "../comics/customComic";
 import { getDataFromCharacterId } from "@/helperApiCallFunctions/character";
+import { IAllStories } from "@/types/stories";
+import React, { useEffect, useState } from "react";
+import CustomStories from "../stories/customStories";
 
-interface IComicsWithCharacter {
+interface IStoriesWithCharacterProps {
   characterId: number;
 }
-const ComicsWithCharacter = ({ characterId }: IComicsWithCharacter) => {
-  const [allComicsWithCharacter, setAllComicsWithCharacter] =
-    useState<IAllComics>();
+
+const StoriesWithCharacer = ({ characterId }: IStoriesWithCharacterProps) => {
+  const [allStoriesWithCharacter, setAllStoriesWithCharacter] =
+    useState<IAllStories>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
-  const [comicName, setComicName] = useState("");
 
   useEffect(() => {
     try {
@@ -21,28 +21,25 @@ const ComicsWithCharacter = ({ characterId }: IComicsWithCharacter) => {
         characterId,
         resultLimit,
         currentPage,
-        comicName,
-        path: "comics",
+        path: "stories",
       }).then((response) => {
         setLoading(false);
-        setAllComicsWithCharacter(response);
+        setAllStoriesWithCharacter(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [resultLimit, currentPage, comicName, characterId]);
-
+  }, [characterId, currentPage, resultLimit]);
   return (
-    <CustomComic
-      allComics={allComicsWithCharacter}
+    <CustomStories
+      allStories={allStoriesWithCharacter}
+      loading={loading}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
       setResultLimit={setResultLimit}
-      setComicName={setComicName}
-      loading={loading}
     />
   );
 };
 
-export default ComicsWithCharacter;
+export default StoriesWithCharacer;

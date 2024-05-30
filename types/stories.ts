@@ -1,19 +1,27 @@
 import {
+  IIndividualCharacter,
   IIndividualComic,
+  IIndividualCreator,
   IIndividualEvent,
-  IIndividualStory,
   ISeriesItem,
   IThumbnail,
-  IUrls,
 } from "./common";
 
-export interface ICharacter {
+export interface IAllStories {
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
+  results: IStory[];
+}
+
+export interface IStory {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  modified: "Date";
   resourceURI: string;
-  urls: IUrls[];
+  type: string;
+  modified: "Date";
   thumbnail: IThumbnail;
   comics: {
     available: number;
@@ -21,11 +29,11 @@ export interface ICharacter {
     collectionURI: string;
     items: IIndividualComic[];
   };
-  stories: {
+  series: {
     available: number;
     returned: number;
     collectionURI: string;
-    items: IIndividualStory[];
+    items: ISeriesItem[];
   };
   events: {
     available: number;
@@ -33,18 +41,20 @@ export interface ICharacter {
     collectionURI: string;
     items: IIndividualEvent[];
   };
-  series: {
+  characters: {
     available: number;
     returned: number;
     collectionURI: string;
-    items: ISeriesItem[];
+    items: IIndividualCharacter[];
   };
-}
-
-export interface IAllCharacters {
-  count: number;
-  limit: number;
-  offset: number;
-  results: ICharacter[];
-  total: number;
+  creators: {
+    available: number;
+    returned: number;
+    collectionURI: string;
+    items: IIndividualCreator[];
+  };
+  originalissue: {
+    resourceURI: string;
+    name: string;
+  };
 }

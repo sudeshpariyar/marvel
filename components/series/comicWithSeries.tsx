@@ -1,40 +1,38 @@
-import React, { useEffect, useState } from "react";
+import { getDataFromSeriesId } from "@/helperApiCallFunctions/series";
 import { IAllComics } from "@/types/comics";
-import { getDataFromCreatorId } from "@/helperApiCallFunctions/creator";
+import React, { useEffect, useState } from "react";
 import CustomComic from "../comics/customComic";
 
-interface IComicsWithCreator {
-  creatorId: number;
+interface IComicWithSeriesProps {
+  seriesId: number;
 }
-const ComicsWithCreator = ({ creatorId }: IComicsWithCreator) => {
-  const [allComicWithCreator, setAllComicWithCreator] = useState<IAllComics>();
+const ComicWithSeries = ({ seriesId }: IComicWithSeriesProps) => {
+  const [allComicWithSeries, setAllCommicsWithSeries] = useState<IAllComics>();
   const [loading, setLoading] = useState(false);
+  const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [comicName, setComicName] = useState("");
-  const [resultLimit, setResultLimit] = useState(10);
 
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromCreatorId({
-        creatorId,
-        resultLimit,
+      getDataFromSeriesId({
+        seriesId,
         currentPage,
+        resultLimit,
         comicName,
         path: "comics",
       }).then((response) => {
-        console.log(response);
         setLoading(false);
-        setAllComicWithCreator(response);
+        setAllCommicsWithSeries(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [comicName, creatorId, currentPage, resultLimit]);
-
+  }, [comicName, currentPage, resultLimit, seriesId]);
   return (
     <CustomComic
-      allComics={allComicWithCreator}
+      allComics={allComicWithSeries}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
@@ -45,4 +43,4 @@ const ComicsWithCreator = ({ creatorId }: IComicsWithCreator) => {
   );
 };
 
-export default ComicsWithCreator;
+export default ComicWithSeries;

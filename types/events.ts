@@ -9,58 +9,58 @@ import {
 } from "./common";
 
 export interface IEvent {
-  id: "int";
-  title: "string";
-  description: "string";
-  resourceURI: "string";
+  id: number;
+  title: string;
+  description: string;
+  resourceURI: string;
   urls: IUrls[];
   modified: "Date";
   start: "Date";
   end: "Date";
   thumbnail: IThumbnail;
   comics: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualComic[];
   };
   stories: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualStory[];
   };
   series: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: ISeriesItem[];
   };
   characters: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualCharacter[];
   };
   creators: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualCreator[];
   };
   next: {
-    resourceURI: "string";
-    name: "string";
+    resourceURI: string;
+    name: string;
   };
   previous: {
-    resourceURI: "string";
-    name: "string";
+    resourceURI: string;
+    name: string;
   };
 }
 export interface IAllEvents {
-  offset: "int";
-  limit: "int";
+  offset: number;
+  limit: number;
   total: number;
-  count: "int";
+  count: number;
   results: IEvent[];
 }

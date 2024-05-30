@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { getDataFromEventId } from "@/helperApiCallFunctions/events";
 import { IAllCreators } from "@/types/creator";
 import CustomCreator from "../creators/customCreator";
-import CustomLoading from "../customLoading";
 
 interface ICreatorsOfEventsProps {
   eventId: number;

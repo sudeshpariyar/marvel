@@ -44,6 +44,7 @@ interface IGetDataFromCreatorIdProps {
   currentPage: number;
   comicName?: string;
   eventName?: string;
+  seriesName?: string;
   path: string;
 }
 export const getDataFromCreatorId = async ({
@@ -52,6 +53,7 @@ export const getDataFromCreatorId = async ({
   currentPage,
   comicName,
   eventName,
+  seriesName,
   path,
 }: IGetDataFromCreatorIdProps) => {
   const response = await axios.get(
@@ -60,7 +62,7 @@ export const getDataFromCreatorId = async ({
       params: {
         limit: resultLimit,
         offset: currentPage * resultLimit,
-        titleStartsWith: comicName ? comicName : null,
+        titleStartsWith: comicName ? comicName : seriesName ? seriesName : null,
         nameStartsWith: eventName ? eventName : null,
       },
     }

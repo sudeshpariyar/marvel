@@ -1,18 +1,18 @@
 import { getDataFromEventId } from "@/helperApiCallFunctions/events";
-import { IAllComics } from "@/types/comics";
+import { IAllSeries } from "@/types/series";
 import React, { useEffect, useState } from "react";
-import CustomComic from "../comics/customComic";
+import CustomSeries from "../series/customSeries";
 
-interface IComicWithEvent {
+interface ISeriesWithEventProps {
   eventId: number;
 }
 
-const ComicsWithinEvent = ({ eventId }: IComicWithEvent) => {
-  const [allComicsWithEvent, setAllComicsWithEvent] = useState<IAllComics>();
+const SeriesWithEvent = ({ eventId }: ISeriesWithEventProps) => {
+  const [allSeriesWithEvent, setAllSeriesWithEvent] = useState<IAllSeries>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
-  const [comicName, setComicName] = useState("");
+  const [seriesName, setSeriesName] = useState("");
 
   useEffect(() => {
     try {
@@ -21,28 +21,28 @@ const ComicsWithinEvent = ({ eventId }: IComicWithEvent) => {
         eventId,
         resultLimit,
         currentPage,
-        comicName,
-        path: "comics",
+        seriesName,
+        path: "series",
       }).then((response) => {
         setLoading(false);
-        setAllComicsWithEvent(response);
+        setAllSeriesWithEvent(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [resultLimit, currentPage, comicName, eventId]);
+  }, [currentPage, eventId, resultLimit, seriesName]);
 
   return (
-    <CustomComic
-      allComics={allComicsWithEvent}
+    <CustomSeries
+      allSeries={allSeriesWithEvent}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
       setResultLimit={setResultLimit}
-      setComicName={setComicName}
+      setSeriesName={setSeriesName}
       loading={loading}
     />
   );
 };
 
-export default ComicsWithinEvent;
+export default SeriesWithEvent;

@@ -10,6 +10,8 @@ import CustomBreakPoint from "@/components/customBreakPoint";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card } from "@/components/ui/card";
 import CustomLoading from "@/components/customLoading";
+import SeriesWithCreators from "@/components/creators/seriesWithCreators";
+import StoriesWithCreator from "@/components/creators/storiesWithCreator";
 
 const IndividualCreatorPage = () => {
   const params = useParams();
@@ -48,19 +50,27 @@ const IndividualCreatorPage = () => {
               <TabsList>
                 <TabsTrigger value="comics">Comics</TabsTrigger>
                 <TabsTrigger value="events">Events</TabsTrigger>
+                <TabsTrigger value="series">Series</TabsTrigger>
+                <TabsTrigger value="stories">Stories</TabsTrigger>
               </TabsList>
               <TabsContent value="comics">
                 <Card className="p-4">
-                  <ComicsWithCreator
-                    creatorId={params.id as unknown as number}
-                  />
+                  <ComicsWithCreator creatorId={individualCreator.id} />
                 </Card>
               </TabsContent>
               <TabsContent value="events">
                 <Card className="p-4">
-                  <EventWithCreator
-                    creatorId={params.id as unknown as number}
-                  />
+                  <EventWithCreator creatorId={individualCreator.id} />
+                </Card>
+              </TabsContent>
+              <TabsContent value="series">
+                <Card className="p-4">
+                  <SeriesWithCreators creatorId={individualCreator.id} />
+                </Card>
+              </TabsContent>
+              <TabsContent value="stories">
+                <Card className="p-4">
+                  <StoriesWithCreator creatorId={individualCreator.id} />
                 </Card>
               </TabsContent>
             </Tabs>

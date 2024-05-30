@@ -22,39 +22,49 @@ const CustomPagination = ({
 }: iPaginationProps) => {
   const maxPage = Math.floor(totalResult / resultLimit);
   return (
-    <Pagination className="flex justify-start">
-      <PaginationContent>
-        {currentPage >= 1 && (
-          <div className="flex">
+    <>
+      {resultLimit < totalResult && (
+        <Pagination className="flex justify-start">
+          <PaginationContent>
+            {currentPage >= 1 && (
+              <div className="flex">
+                <PaginationItem>
+                  <PaginationPrevious
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  />
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(currentPage - 1)}
+                  >
+                    {currentPage - 1}
+                  </PaginationLink>
+                </PaginationItem>
+              </div>
+            )}
             <PaginationItem>
-              <PaginationPrevious
-                onClick={() => setCurrentPage(currentPage - 1)}
-              />
+              <PaginationLink isActive>{currentPage}</PaginationLink>
             </PaginationItem>
-            <PaginationItem>
-              <PaginationLink onClick={() => setCurrentPage(currentPage - 1)}>
-                {currentPage - 1}
-              </PaginationLink>
-            </PaginationItem>
-          </div>
-        )}
-        <PaginationItem>
-          <PaginationLink isActive>{currentPage}</PaginationLink>
-        </PaginationItem>
-        {currentPage < maxPage && (
-          <div className="flex">
-            <PaginationItem>
-              <PaginationLink onClick={() => setCurrentPage(currentPage + 1)}>
-                {currentPage + 1}
-              </PaginationLink>
-            </PaginationItem>
-            <PaginationItem>
-              <PaginationNext onClick={() => setCurrentPage(currentPage + 1)} />
-            </PaginationItem>
-          </div>
-        )}
-      </PaginationContent>
-    </Pagination>
+            {currentPage < maxPage && (
+              <div className="flex">
+                <PaginationItem>
+                  <PaginationLink
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  >
+                    {currentPage + 1}
+                  </PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                  <PaginationNext
+                    onClick={() => setCurrentPage(currentPage + 1)}
+                  />
+                </PaginationItem>
+              </div>
+            )}
+          </PaginationContent>
+        </Pagination>
+      )}
+    </>
   );
 };
 

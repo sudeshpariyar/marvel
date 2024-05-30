@@ -4,6 +4,7 @@ import CreatorsLandingCard from "@/components/creators/creatorsLandingCard";
 import CustomBreakPoint from "@/components/customBreakPoint";
 import EventsLandingCard from "@/components/events/eventsLandingCard";
 import SeriesLandigCard from "@/components/series/seriesLandigCard";
+import StoriesLandingCard from "@/components/stories/storiesLandingCard";
 import Image from "next/image";
 import React from "react";
 
@@ -19,12 +20,13 @@ const LandingPage = () => {
         />
       </div>
       <CustomBreakPoint>
-        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
+        <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
           <Characters />
           <ComicsLandingCard />
           <EventsLandingCard />
           <CreatorsLandingCard />
           <SeriesLandigCard />
+          <StoriesLandingCard />
         </div>
       </CustomBreakPoint>
     </div>

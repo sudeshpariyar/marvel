@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import CustomShowHide from "../customShowHide";
 import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
 import { IAllEvents } from "@/types/events";
 import CustomEvent from "../events/customEvent";
-import CustomLoading from "../customLoading";
 
 interface IEventsWithinComics {
   comicId: number;

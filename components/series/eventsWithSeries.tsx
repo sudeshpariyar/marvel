@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from "react";
+import { getDataFromSeriesId } from "@/helperApiCallFunctions/series";
 import { IAllEvents } from "@/types/events";
+import React, { useEffect, useState } from "react";
 import CustomEvent from "../events/customEvent";
-import { getDataFromCharacterId } from "@/helperApiCallFunctions/character";
 
-interface IEventsWithCharacterProps {
-  characterId: number;
+interface IEventsWithSeriesProps {
+  seriesId: number;
 }
-const EventsWithCharacter = ({ characterId }: IEventsWithCharacterProps) => {
-  const [allEventsWithCharacter, setAllEventsWithCharacter] =
-    useState<IAllEvents>();
+const EventsWithSeries = ({ seriesId }: IEventsWithSeriesProps) => {
+  const [allEventsWithSeries, setAllEventsWithSeries] = useState<IAllEvents>();
   const [loading, setLoading] = useState(false);
-  const [resultLimit, setResultLimit] = useState(10);
   const [currentPage, setCurrentPage] = useState(0);
   const [eventName, setEventName] = useState("");
+  const [resultLimit, setResultLimit] = useState(10);
+
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromCharacterId({
-        characterId,
+      getDataFromSeriesId({
+        seriesId,
         resultLimit,
         currentPage,
         eventName,
         path: "events",
       }).then((response) => {
         setLoading(false);
-        setAllEventsWithCharacter(response);
+        setAllEventsWithSeries(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [resultLimit, currentPage, eventName, characterId]);
-
+  }, [currentPage, eventName, resultLimit, seriesId]);
   return (
     <CustomEvent
-      allEvents={allEventsWithCharacter}
+      allEvents={allEventsWithSeries}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
@@ -44,4 +43,4 @@ const EventsWithCharacter = ({ characterId }: IEventsWithCharacterProps) => {
   );
 };
 
-export default EventsWithCharacter;
+export default EventsWithSeries;

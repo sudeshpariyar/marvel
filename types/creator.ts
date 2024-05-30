@@ -8,45 +8,45 @@ import {
 } from "./common";
 
 export interface IAllCreators {
-  offset: "int";
-  limit: "int";
-  total: "int";
-  count: "int";
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
   results: ICreator[];
 }
 export interface ICreator {
-  id: "int";
-  firstName: "string";
-  middleName: "string";
-  lastName: "string";
-  suffix: "string";
-  fullName: "string";
+  id: number;
+  firstName: string;
+  middleName: string;
+  lastName: string;
+  suffix: string;
+  fullName: string;
   modified: "Date";
-  resourceURI: "string";
+  resourceURI: string;
   urls: IUrls[];
   thumbnail: IThumbnail;
   series: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: ISeriesItem[];
   };
   stories: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualStory[];
   };
   comics: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualComic[];
   };
   events: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualEvent[];
   };
 }

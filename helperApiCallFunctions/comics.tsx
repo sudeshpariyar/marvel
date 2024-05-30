@@ -1,5 +1,4 @@
 import axios from "@/lib/axios";
-import { IComic } from "@/types/comics";
 
 //Return all the comics
 interface IGetAllComicsProps {

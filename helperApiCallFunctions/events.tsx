@@ -33,7 +33,7 @@ export const getIndividualEvent = async ({
   eventId,
 }: IGetIndividualEventProps) => {
   const response = await axios.get(
-    `events/${eventId}?apikey=${process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY}`
+    `/events/${eventId}?apikey=${process.env.NEXT_PUBLIC_MARVEL_PUBLIC_KEY}`
   );
   return response.data.data.results[0];
 };
@@ -46,6 +46,7 @@ interface IGetDataFromEventIdProps {
   characterName?: string;
   comicName?: string;
   creatorName?: string;
+  seriesName?: string;
   path: string;
 }
 export const getDataFromEventId = async ({
@@ -54,6 +55,8 @@ export const getDataFromEventId = async ({
   resultLimit,
   characterName,
   creatorName,
+  comicName,
+  seriesName,
   path,
 }: IGetDataFromEventIdProps) => {
   const response = await axios.get(
@@ -62,6 +65,7 @@ export const getDataFromEventId = async ({
       params: {
         offset: currentPage * resultLimit,
         limit: resultLimit,
+        titleStartsWith: comicName ? comicName : seriesName ? seriesName : null,
         nameStartsWith: characterName
           ? characterName
           : creatorName

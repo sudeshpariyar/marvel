@@ -8,60 +8,60 @@ import {
 } from "./common";
 
 export interface ISeries {
-  id: "int";
-  title: "string";
-  description: "string";
-  resourceURI: "string";
+  id: number;
+  title: string;
+  description: string;
+  resourceURI: string;
   urls: IUrls[];
-  startYear: "int";
-  endYear: "int";
-  rating: "string";
+  startYear: number;
+  endYear: number;
+  rating: string;
   modified: "Date";
   thumbnail: IThumbnail;
   comics: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualComic[];
   };
   stories: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualStory[];
   };
   events: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualEvent[];
   };
   characters: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualCharacter[];
   };
   creators: {
-    available: "int";
-    returned: "int";
-    collectionURI: "string";
+    available: number;
+    returned: number;
+    collectionURI: string;
     items: IIndividualCharacter[];
   };
   next: {
-    resourceURI: "string";
-    name: "string";
+    resourceURI: string;
+    name: string;
   };
   previous: {
-    resourceURI: "string";
-    name: "string";
+    resourceURI: string;
+    name: string;
   };
 }
 
 export interface IAllSeries {
-  offset: "int";
-  limit: "int";
-  total: "int";
-  count: "int";
+  offset: number;
+  limit: number;
+  total: number;
+  count: number;
   results: ISeries[];
 }

@@ -11,6 +11,8 @@ import CreatorsOfEvents from "@/components/events/creatorsOfEvents";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CustomLoading from "@/components/customLoading";
+import SeriesWithEvent from "@/components/events/seriesWithEvent";
+import StoriesWithEvent from "@/components/events/storiesWithEvent";
 
 const IndividualEventPage = () => {
   const params = useParams();
@@ -49,22 +51,32 @@ const IndividualEventPage = () => {
                 <TabsTrigger value="character">Character</TabsTrigger>
                 <TabsTrigger value="comic">Comics</TabsTrigger>
                 <TabsTrigger value="creator">Creator</TabsTrigger>
+                <TabsTrigger value="series">Series</TabsTrigger>
+                <TabsTrigger value="stories">Stories</TabsTrigger>
               </TabsList>
               <TabsContent value="character">
                 <Card className="p-4">
-                  <CharactersWithinEvent
-                    eventId={params.id as unknown as number}
-                  />
+                  <CharactersWithinEvent eventId={individualEvent.id} />
                 </Card>
               </TabsContent>
               <TabsContent value="comic">
                 <Card className="p-4">
-                  <ComicsWithinEvent eventId={params.id as unknown as number} />
+                  <ComicsWithinEvent eventId={individualEvent.id} />
                 </Card>
               </TabsContent>
               <TabsContent value="creator">
                 <Card className="p-4">
-                  <CreatorsOfEvents eventId={params.id as unknown as number} />
+                  <CreatorsOfEvents eventId={individualEvent.id} />
+                </Card>
+              </TabsContent>
+              <TabsContent value="series">
+                <Card className="p-4">
+                  <SeriesWithEvent eventId={individualEvent.id} />
+                </Card>
+              </TabsContent>
+              <TabsContent value="stories">
+                <Card className="p-4">
+                  <StoriesWithEvent eventId={individualEvent.id} />
                 </Card>
               </TabsContent>
             </Tabs>

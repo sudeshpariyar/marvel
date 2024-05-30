@@ -11,6 +11,7 @@ import CreatorsWithComics from "@/components/comics/creatorsWithComics";
 import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CustomLoading from "@/components/customLoading";
+import StoriesWithinCoics from "@/components/comics/storiesWithinCoics";
 
 const IndividualComic = () => {
   const params = useParams();
@@ -49,26 +50,26 @@ const IndividualComic = () => {
                 <TabsTrigger value="characters">Characters</TabsTrigger>
                 <TabsTrigger value="events">Events</TabsTrigger>
                 <TabsTrigger value="creator">Creator</TabsTrigger>
+                <TabsTrigger value="stories">Stories</TabsTrigger>
               </TabsList>
               <TabsContent value="characters">
                 <Card className="p-4">
-                  <CharactersWithinComics
-                    comicId={params.id as unknown as number}
-                  />
+                  <CharactersWithinComics comicId={individualComic.id} />
                 </Card>
               </TabsContent>
               <TabsContent value="events">
                 <Card className="p-4">
-                  <EventsWithinComics
-                    comicId={params.id as unknown as number}
-                  />
+                  <EventsWithinComics comicId={individualComic.id} />
                 </Card>
               </TabsContent>
               <TabsContent value="creator">
                 <Card className="p-4">
-                  <CreatorsWithComics
-                    comicId={params.id as unknown as number}
-                  />
+                  <CreatorsWithComics comicId={individualComic.id} />
+                </Card>
+              </TabsContent>
+              <TabsContent value="stories">
+                <Card className="p-4">
+                  <StoriesWithinCoics comicId={individualComic.id} />
                 </Card>
               </TabsContent>
             </Tabs>

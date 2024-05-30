@@ -1,41 +1,40 @@
-import React, { useEffect, useState } from "react";
+import { getDataFromSeriesId } from "@/helperApiCallFunctions/series";
 import { IAllCharacters } from "@/types/characters";
+import React, { useEffect, useState } from "react";
 import CusotmCharacter from "../characters/cusotmCharacter";
-import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
 
-interface ICharacterWithInComics {
-  comicId: number;
+interface ICharacterWithSeries {
+  seriesId: number;
 }
 
-const CharactersWithinComics = ({ comicId }: ICharacterWithInComics) => {
-  const [allCharactersInComics, setAllCharacterInComics] =
+const CharacterWithSeries = ({ seriesId }: ICharacterWithSeries) => {
+  const [allCharacterInSeries, setAllcharacterInSeries] =
     useState<IAllCharacters>();
+  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(0);
   const [resultLimit, setResultLimit] = useState(10);
   const [characterName, setCharacterName] = useState("");
-  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromComicId({
-        comicId,
+      getDataFromSeriesId({
+        seriesId,
         currentPage,
         resultLimit,
         characterName,
         path: "characters",
       }).then((response) => {
         setLoading(false);
-        setAllCharacterInComics(response);
+        setAllcharacterInSeries(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [characterName, comicId, currentPage, resultLimit]);
-
+  }, [characterName, currentPage, resultLimit, seriesId]);
   return (
     <CusotmCharacter
-      allCharacters={allCharactersInComics}
+      allCharacters={allCharacterInSeries}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
@@ -46,4 +45,4 @@ const CharactersWithinComics = ({ comicId }: ICharacterWithInComics) => {
   );
 };
 
-export default CharactersWithinComics;
+export default CharacterWithSeries;

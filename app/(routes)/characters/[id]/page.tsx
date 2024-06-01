@@ -12,6 +12,12 @@ import { Card } from "@/components/ui/card";
 import CustomLoading from "@/components/customLoading";
 import SeriesWithCharacter from "@/components/characters/seriesWithCharacter";
 import StoriesWithCharacer from "@/components/characters/storiesWithCharacer";
+import {
+  BookOpenText,
+  CalendarFold,
+  Clapperboard,
+  SquareLibrary,
+} from "lucide-react";
 
 const IndividuaCharacter = () => {
   const params = useParams();
@@ -36,7 +42,7 @@ const IndividuaCharacter = () => {
   return (
     <>
       {individualCharacter && (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-10">
           <CustomImageAndDescription
             thumbNailPath={individualCharacter.thumbnail.path}
             thumbnailExtension={individualCharacter.thumbnail.extension}
@@ -45,11 +51,25 @@ const IndividuaCharacter = () => {
           />
           <CustomBreakPoint>
             <Tabs defaultValue="comics">
-              <TabsList>
-                <TabsTrigger value="comics">Comics</TabsTrigger>
-                <TabsTrigger value="events">Events</TabsTrigger>
-                <TabsTrigger value="series">Series</TabsTrigger>
-                <TabsTrigger value="stories">Stories</TabsTrigger>
+              <TabsList className="w-full sm:w-auto">
+                <div className="flex overflow-x-auto ">
+                  <TabsTrigger value="comics">
+                    <BookOpenText className="text-red-600 mr-1" />
+                    Comics
+                  </TabsTrigger>
+                  <TabsTrigger value="events">
+                    <CalendarFold className="text-red-600 mr-1" />
+                    Events
+                  </TabsTrigger>
+                  <TabsTrigger value="series">
+                    <Clapperboard className="text-red-600 mr-1" />
+                    Series
+                  </TabsTrigger>
+                  <TabsTrigger value="stories">
+                    <SquareLibrary className="text-red-600 mr-1" />
+                    Stories
+                  </TabsTrigger>
+                </div>
               </TabsList>
               <TabsContent value="comics">
                 <Card className="p-4">

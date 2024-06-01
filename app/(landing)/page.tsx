@@ -1,3 +1,5 @@
+"use client";
+import React from "react";
 import Characters from "@/components/characters/charactersLandingCard";
 import ComicsLandingCard from "@/components/comics/comicsLandingCard";
 import CreatorsLandingCard from "@/components/creators/creatorsLandingCard";
@@ -6,7 +8,6 @@ import EventsLandingCard from "@/components/events/eventsLandingCard";
 import SeriesLandigCard from "@/components/series/seriesLandigCard";
 import StoriesLandingCard from "@/components/stories/storiesLandingCard";
 import Image from "next/image";
-import React from "react";
 
 const LandingPage = () => {
   return (

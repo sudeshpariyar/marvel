@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
+import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
 
 const formSchema = z.object({
   eventName: z.string(),
@@ -47,33 +48,30 @@ const CustomEvent = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-row items-center justify-between">
-          <span> Total events {allEvents?.total}.</span>
-          <div className="flex gap-2">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleEventNameSubmit)}>
-                <FormField
-                  control={form.control}
-                  name="eventName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Event title starts with..."
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-            <CustomDropDown
-              resultLimit={resultLimit}
-              setResultLimit={setResultLimit}
-            />
-          </div>
-        </div>
+        <CustomTotalFormDropDownWrapper totalResult={allEvents?.total}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleEventNameSubmit)}>
+              <FormField
+                control={form.control}
+                name="eventName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Event title starts with..."
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+          <CustomDropDown
+            resultLimit={resultLimit}
+            setResultLimit={setResultLimit}
+          />
+        </CustomTotalFormDropDownWrapper>
         {loading ? (
           <CustomLoading />
         ) : (

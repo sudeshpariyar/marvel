@@ -10,6 +10,7 @@ import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import { Input } from "../ui/input";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
+import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
 
 const formSchema = z.object({
   creatorName: z.string(),
@@ -47,33 +48,30 @@ const CustomCreator = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-row items-center justify-between">
-          <span> Total creators {allCreators?.total}.</span>
-          <div className="flex gap-2">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleCreatorNameSubmit)}>
-                <FormField
-                  control={form.control}
-                  name="creatorName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="Creator name starts with..."
-                          {...field}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-            <CustomDropDown
-              resultLimit={resultLimit}
-              setResultLimit={setResultLimit}
-            />
-          </div>
-        </div>
+        <CustomTotalFormDropDownWrapper totalResult={allCreators?.total}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleCreatorNameSubmit)}>
+              <FormField
+                control={form.control}
+                name="creatorName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        placeholder="Creator name starts with..."
+                        {...field}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+          <CustomDropDown
+            resultLimit={resultLimit}
+            setResultLimit={setResultLimit}
+          />
+        </CustomTotalFormDropDownWrapper>
         {loading ? (
           <CustomLoading />
         ) : (

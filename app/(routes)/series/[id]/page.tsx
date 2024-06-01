@@ -13,6 +13,13 @@ import ComicWithSeries from "@/components/series/comicWithSeries";
 import CreatorsWithSeries from "@/components/series/creatorsWithSeries";
 import EventsWithSeries from "@/components/series/eventsWithSeries";
 import StoriesWithSeries from "@/components/series/storiesWithSeries";
+import {
+  Baby,
+  BookOpenText,
+  PencilLine,
+  CalendarFold,
+  SquareLibrary,
+} from "lucide-react";
 
 const IndividualSeriePage = () => {
   const params = useParams();
@@ -47,12 +54,29 @@ const IndividualSeriePage = () => {
           />
           <CustomBreakPoint>
             <Tabs defaultValue="character">
-              <TabsList>
-                <TabsTrigger value="character">Character</TabsTrigger>
-                <TabsTrigger value="comic">Comics</TabsTrigger>
-                <TabsTrigger value="creator">Creator</TabsTrigger>
-                <TabsTrigger value="events">Events</TabsTrigger>
-                <TabsTrigger value="stories">Stories</TabsTrigger>
+              <TabsList className="w-full sm:w-auto">
+                <div className="flex overflow-x-auto ">
+                  <TabsTrigger value="character">
+                    <Baby className="text-red-600 mr-1" />
+                    Character
+                  </TabsTrigger>
+                  <TabsTrigger value="comic">
+                    <BookOpenText className="text-red-600 mr-1" />
+                    Comics
+                  </TabsTrigger>
+                  <TabsTrigger value="creator">
+                    <PencilLine className="text-red-600 mr-1" />
+                    Creator
+                  </TabsTrigger>
+                  <TabsTrigger value="events">
+                    <CalendarFold className="text-red-600 mr-1" />
+                    Events
+                  </TabsTrigger>
+                  <TabsTrigger value="stories">
+                    <SquareLibrary className="text-red-600 mr-1" />
+                    Stories
+                  </TabsTrigger>
+                </div>
               </TabsList>
               <TabsContent value="character">
                 <Card className="p-4">

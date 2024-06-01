@@ -10,6 +10,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
+import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
 
 interface ICustomComicProps {
   allComics?: IAllComics;
@@ -48,30 +49,27 @@ const CustomComic = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-row items-center justify-between">
-          <span> Total Comics {allComics?.total}.</span>
-          <div className="flex gap-2">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleCommicNameSubmit)}>
-                <FormField
-                  control={form.control}
-                  name="comicName"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="Title starts with..." {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-            <CustomDropDown
-              resultLimit={resultLimit}
-              setResultLimit={setResultLimit}
-            />
-          </div>
-        </div>
+        <CustomTotalFormDropDownWrapper totalResult={allComics?.total}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleCommicNameSubmit)}>
+              <FormField
+                control={form.control}
+                name="comicName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Title starts with..." {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+          <CustomDropDown
+            resultLimit={resultLimit}
+            setResultLimit={setResultLimit}
+          />
+        </CustomTotalFormDropDownWrapper>
         {loading ? (
           <CustomLoading />
         ) : (

@@ -10,6 +10,7 @@ import IndividualCharacterCard from "./individualCharacterCard";
 import CustomPagination from "../customPagination";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
+import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
 
 const formSchema = z.object({
   characterNameStartsWith: z.string(),
@@ -46,30 +47,27 @@ const CusotmCharacter = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-row items-center justify-between">
-          <span> Total Characters {allCharacters?.total}.</span>
-          <div className="flex gap-2">
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(handleCharacterSubmit)}>
-                <FormField
-                  control={form.control}
-                  name="characterNameStartsWith"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input placeholder="starting letters" {...field} />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </form>
-            </Form>
-            <CustomDropDown
-              resultLimit={resultLimit}
-              setResultLimit={setResultLimit}
-            />
-          </div>
-        </div>
+        <CustomTotalFormDropDownWrapper totalResult={allCharacters?.total}>
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(handleCharacterSubmit)}>
+              <FormField
+                control={form.control}
+                name="characterNameStartsWith"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="starting letters" {...field} />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </form>
+          </Form>
+          <CustomDropDown
+            resultLimit={resultLimit}
+            setResultLimit={setResultLimit}
+          />
+        </CustomTotalFormDropDownWrapper>
         {loading ? (
           <CustomLoading />
         ) : (

@@ -12,6 +12,7 @@ import { Card } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import CustomLoading from "@/components/customLoading";
 import StoriesWithinCoics from "@/components/comics/storiesWithinCoics";
+import { Baby, CalendarFold, PencilLine, SquareLibrary } from "lucide-react";
 
 const IndividualComic = () => {
   const params = useParams();
@@ -46,11 +47,25 @@ const IndividualComic = () => {
           />
           <CustomBreakPoint>
             <Tabs defaultValue="characters">
-              <TabsList>
-                <TabsTrigger value="characters">Characters</TabsTrigger>
-                <TabsTrigger value="events">Events</TabsTrigger>
-                <TabsTrigger value="creator">Creator</TabsTrigger>
-                <TabsTrigger value="stories">Stories</TabsTrigger>
+              <TabsList className="w-full sm:w-auto">
+                <div className="flex overflow-x-auto ">
+                  <TabsTrigger value="characters">
+                    <Baby className="text-red-600 mr-1" />
+                    Characters
+                  </TabsTrigger>
+                  <TabsTrigger value="events">
+                    <CalendarFold className="text-red-600 mr-1" />
+                    Events
+                  </TabsTrigger>
+                  <TabsTrigger value="creator">
+                    <PencilLine className="text-red-600 mr-1" />
+                    Creator
+                  </TabsTrigger>
+                  <TabsTrigger value="stories">
+                    <SquareLibrary className="text-red-600 mr-1" />
+                    Stories
+                  </TabsTrigger>
+                </div>
               </TabsList>
               <TabsContent value="characters">
                 <Card className="p-4">

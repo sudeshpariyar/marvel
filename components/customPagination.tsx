@@ -24,8 +24,8 @@ const CustomPagination = ({
   return (
     <>
       {resultLimit < totalResult && (
-        <Pagination className="flex justify-start">
-          <PaginationContent>
+        <Pagination className="flex justify-start ">
+          <PaginationContent className="cursor-pointer">
             {currentPage >= 1 && (
               <div className="flex">
                 <PaginationItem>

@@ -7,6 +7,7 @@ import {
   CalendarFold,
   Clapperboard,
   PencilLine,
+  SquareLibrary,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -54,7 +55,7 @@ const Footer = () => {
               onClick={() => handleRoute("creators")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
             >
-              Events
+              Creators
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -64,6 +65,15 @@ const Footer = () => {
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
             >
               Series
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <SquareLibrary className="text-red-800" />
+            <span
+              onClick={() => handleRoute("stories")}
+              className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
+            >
+              Stories
             </span>
           </div>
         </div>

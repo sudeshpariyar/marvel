@@ -15,6 +15,7 @@ import {
   Clapperboard,
   Menu,
   PencilLine,
+  SquareLibrary,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
 
@@ -68,6 +69,13 @@ const FloatingNavBar = () => {
           >
             <Clapperboard className="text-red-600" />
             <span className="text-gray-400">Series</span>
+          </Label>
+          <Label
+            className="flex items-center gap-4"
+            onClick={() => handleRoute("stories")}
+          >
+            <SquareLibrary className="text-red-600" />
+            <span className="text-gray-400">Stories</span>
           </Label>
         </div>
       </SheetContent>

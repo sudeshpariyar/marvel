@@ -1,42 +1,39 @@
-import React, { useEffect, useState } from "react";
-import { getDataFromCreatorId } from "@/helperApiCallFunctions/creator";
+import { getDataFromStoryId } from "@/helperApiCallFunctions/stories";
 import { IAllEvents } from "@/types/events";
+import React, { useEffect, useState } from "react";
 import CustomEvent from "../events/customEvent";
 
-interface IEventWithCreator {
-  creatorId: number;
+interface IEventWithStory {
+  storyId: number;
 }
-
-const EventWithCreator = ({ creatorId }: IEventWithCreator) => {
-  const [allEventsWithCreator, setAllEventsWithCreator] =
-    useState<IAllEvents>();
-  const [loading, setLoading] = useState(false);
+const EventWithStory = ({ storyId }: IEventWithStory) => {
+  const [allEventsWithStory, setAllEventsWithStory] = useState<IAllEvents>();
   const [currentPage, setCurrentPage] = useState(0);
-  const [eventName, setEventName] = useState("");
-
   const [resultLimit, setResultLimit] = useState(10);
+  const [eventName, setEventName] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromCreatorId({
-        creatorId,
+      getDataFromStoryId({
+        storyId,
         resultLimit,
         currentPage,
         eventName,
         path: "events",
       }).then((response) => {
         setLoading(false);
-        setAllEventsWithCreator(response);
+        setAllEventsWithStory(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [creatorId, currentPage, eventName, resultLimit]);
+  }, [resultLimit, currentPage, eventName, storyId]);
 
   return (
     <CustomEvent
-      allEvents={allEventsWithCreator}
+      allEvents={allEventsWithStory}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
@@ -47,4 +44,4 @@ const EventWithCreator = ({ creatorId }: IEventWithCreator) => {
   );
 };
 
-export default EventWithCreator;
+export default EventWithStory;

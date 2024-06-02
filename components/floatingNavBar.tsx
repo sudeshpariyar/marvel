@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 const FloatingNavBar = () => {
   const router = useRouter();
   const handleRoute = (path: string) => {
-    console.log("handleRoute");
     router.push(`/${path}`);
   };
   return (

@@ -1,15 +1,14 @@
-"use client";
-import React, { useEffect, useState } from "react";
+import { getDataFromStoryId } from "@/helperApiCallFunctions/stories";
 import { IAllCreators } from "@/types/creator";
-import { getDataFromComicId } from "@/helperApiCallFunctions/comics";
+import React, { useEffect, useState } from "react";
 import CustomCreator from "../creators/customCreator";
 
-interface ICreatorsWithinComics {
-  comicId: number;
+interface ICreateWithStory {
+  storyId: number;
 }
 
-const CreatorsWithComics = ({ comicId }: ICreatorsWithinComics) => {
-  const [allCreatorsWithComics, setAllCreatorsWithComics] =
+const CreatorWithStory = ({ storyId }: ICreateWithStory) => {
+  const [allCreatorsWithStory, setAllCreatorsWithStory] =
     useState<IAllCreators>();
   const [loading, setLoading] = useState(false);
   const [resultLimit, setResultLimit] = useState(10);
@@ -18,24 +17,24 @@ const CreatorsWithComics = ({ comicId }: ICreatorsWithinComics) => {
   useEffect(() => {
     try {
       setLoading(true);
-      getDataFromComicId({
-        comicId,
+      getDataFromStoryId({
+        storyId,
         currentPage,
         resultLimit,
         creatorName,
         path: "creators",
       }).then((response) => {
         setLoading(false);
-        setAllCreatorsWithComics(response);
+        setAllCreatorsWithStory(response);
       });
     } catch (error) {
       console.log(error);
     }
-  }, [comicId, creatorName, currentPage, resultLimit]);
+  }, [creatorName, currentPage, resultLimit, storyId]);
 
   return (
     <CustomCreator
-      allCreators={allCreatorsWithComics}
+      allCreators={allCreatorsWithStory}
       currentPage={currentPage}
       setCurrentPage={setCurrentPage}
       resultLimit={resultLimit}
@@ -46,4 +45,4 @@ const CreatorsWithComics = ({ comicId }: ICreatorsWithinComics) => {
   );
 };
 
-export default CreatorsWithComics;
+export default CreatorWithStory;

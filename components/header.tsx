@@ -7,7 +7,7 @@ import CustomBreakPoint from "./customBreakPoint";
 const Header = () => {
   const router = useRouter();
   return (
-    <header className="bg-black text-red-800 py-6 sticky top-0 z-10">
+    <header className="bg-black text-red-600 py-6 sticky top-0 z-10">
       <CustomBreakPoint>
         <div className="flex flex-row items-center justify-between">
           <div

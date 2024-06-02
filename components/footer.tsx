@@ -20,10 +20,10 @@ const Footer = () => {
   return (
     <footer className=" bg-black text-gray-500 py-6">
       <CustomBreakPoint>
-        <div className="text-2xl font-bold text-red-800">Marvel</div>
+        <div className="text-2xl font-bold text-red-600">Marvel</div>
         <div className="flex flex-col gap-4 mt-8">
           <div className="flex items-center gap-2 ">
-            <Baby className="text-red-800" />
+            <Baby className="text-red-600" />
             <span
               onClick={() => handleRoute("characters")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
@@ -32,7 +32,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <BookOpenText className="text-red-800" />
+            <BookOpenText className="text-red-600" />
             <span
               onClick={() => handleRoute("comics")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
@@ -41,7 +41,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <CalendarFold className="text-red-800" />
+            <CalendarFold className="text-red-600" />
             <span
               onClick={() => handleRoute("events")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
@@ -50,7 +50,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <PencilLine className="text-red-800" />
+            <PencilLine className="text-red-600" />
             <span
               onClick={() => handleRoute("creators")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
@@ -59,7 +59,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <Clapperboard className="text-red-800" />
+            <Clapperboard className="text-red-600" />
             <span
               onClick={() => handleRoute("series")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"
@@ -68,7 +68,7 @@ const Footer = () => {
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <SquareLibrary className="text-red-800" />
+            <SquareLibrary className="text-red-600" />
             <span
               onClick={() => handleRoute("stories")}
               className="cursor-pointer hover:translate-x-1 hover:font-bold hover:text-gray-300"

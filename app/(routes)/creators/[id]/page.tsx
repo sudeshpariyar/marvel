@@ -28,7 +28,6 @@ const IndividualCreatorPage = () => {
       setLoading(true);
       getSingleCreator({ creatorId: params.id as unknown as number }).then(
         (response) => {
-          console.log(response);
           setLoading(false);
           setIndividualCreator(response);
         }

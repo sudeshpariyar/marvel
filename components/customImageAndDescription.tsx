@@ -7,6 +7,7 @@ interface ICustomImageAndDescriptionProps {
   thumbnailExtension: string;
   title: string;
   description: string;
+  alt?: string | null;
 }
 
 const CustomImageAndDescription = ({
@@ -14,17 +15,20 @@ const CustomImageAndDescription = ({
   thumbnailExtension,
   title,
   description,
+  alt,
 }: ICustomImageAndDescriptionProps) => {
   return (
     <CustomBreakPoint>
       <div className="mt-10 flex flex-col gap-10">
-        <div className="text-3xl lg:text-5xl font-bold">{title}</div>
+        <div className="text-3xl lg:text-5xl font-bold text-red-600">
+          {title}
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-10">
           <Image
-            alt="Cover"
+            alt={alt ? alt : "Cover"}
             src={`${thumbNailPath}/landscape_incredible.${thumbnailExtension}`}
-            className="object-cover rounded-lg transition-shadow duration-300 ease-in-out hover:shadow-2xl hover:shadow-black/40"
+            className="border border-gray-300 object-cover rounded-lg transition-shadow duration-300 ease-in-out hover:shadow-2xl hover:shadow-black/40 "
             height={261}
             width={464}
             priority

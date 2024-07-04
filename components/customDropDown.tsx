@@ -13,9 +13,18 @@ import { ChevronDown } from "lucide-react";
 interface IDropDownProps {
   resultLimit: number;
   setResultLimit: (value: number) => void;
+  setCurrentPage: (value: number) => void;
 }
 
-const CustomDropDown = ({ resultLimit, setResultLimit }: IDropDownProps) => {
+const CustomDropDown = ({
+  resultLimit,
+  setResultLimit,
+  setCurrentPage,
+}: IDropDownProps) => {
+  const handleResultLimitCurrentPage = (value: number) => {
+    setResultLimit(value);
+    setCurrentPage(0);
+  };
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -26,19 +35,19 @@ const CustomDropDown = ({ resultLimit, setResultLimit }: IDropDownProps) => {
       <DropdownMenuContent>
         <DropdownMenuLabel>Choose Results Number</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={() => setResultLimit(10)}>
+        <DropdownMenuItem onClick={() => handleResultLimitCurrentPage(10)}>
           10
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setResultLimit(20)}>
+        <DropdownMenuItem onClick={() => handleResultLimitCurrentPage(20)}>
           20
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setResultLimit(30)}>
+        <DropdownMenuItem onClick={() => handleResultLimitCurrentPage(30)}>
           30
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setResultLimit(40)}>
+        <DropdownMenuItem onClick={() => handleResultLimitCurrentPage(40)}>
           40
         </DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setResultLimit(50)}>
+        <DropdownMenuItem onClick={() => handleResultLimitCurrentPage(50)}>
           50
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -66,6 +66,7 @@ const CusotmCharacter = ({
           <CustomDropDown
             resultLimit={resultLimit}
             setResultLimit={setResultLimit}
+            setCurrentPage={setCurrentPage}
           />
         </CustomTotalFormDropDownWrapper>
         {loading ? (

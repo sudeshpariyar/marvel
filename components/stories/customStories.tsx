@@ -31,6 +31,7 @@ const CustomStories = ({
           <CustomDropDown
             resultLimit={resultLimit}
             setResultLimit={setResultLimit}
+            setCurrentPage={setCurrentPage}
           />
         </div>
       </div>

@@ -68,6 +68,7 @@ const CustomComic = ({
           <CustomDropDown
             resultLimit={resultLimit}
             setResultLimit={setResultLimit}
+            setCurrentPage={setCurrentPage}
           />
         </CustomTotalFormDropDownWrapper>
         {loading ? (

@@ -1,5 +1,5 @@
 import { IAllComics } from "@/types/comics";
-import React from "react";
+import React, { useState } from "react";
 import { Form, FormControl, FormField, FormItem } from "../ui/form";
 import CustomDropDown from "../customDropDown";
 import IndividualComic from "./individualComicCard";
@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
 import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
+import ComicTable from "./comicTable";
 
 interface ICustomComicProps {
   allComics?: IAllComics;
@@ -35,6 +36,7 @@ const CustomComic = ({
   setComicName,
   loading,
 }: ICustomComicProps) => {
+  const [displayGrid, setDisplayGrid] = useState("grid");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -49,7 +51,10 @@ const CustomComic = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <CustomTotalFormDropDownWrapper totalResult={allComics?.total}>
+        <CustomTotalFormDropDownWrapper
+          totalResult={allComics?.total}
+          setDisplayGrid={setDisplayGrid}
+        >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleCommicNameSubmit)}>
               <FormField
@@ -77,11 +82,16 @@ const CustomComic = ({
           <>
             {allComics?.results.length ? (
               <div className="flex flex-col gap-4">
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                  {allComics.results.map((comic) => (
-                    <IndividualComic key={comic.id} comic={comic} />
-                  ))}
-                </div>
+                {displayGrid === "grid" ? (
+                  <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {allComics.results.map((comic) => (
+                      <IndividualComic key={comic.id} comic={comic} />
+                    ))}
+                  </div>
+                ) : (
+                  <ComicTable comics={allComics} />
+                )}
+
                 <CustomPagination
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}

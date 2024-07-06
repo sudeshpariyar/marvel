@@ -1,5 +1,5 @@
 import { IAllEvents } from "@/types/events";
-import React from "react";
+import React, { useState } from "react";
 import CustomDropDown from "../customDropDown";
 import CustomPagination from "../customPagination";
 import IndividualEventCard from "./individualEventCard";
@@ -11,6 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
 import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
+import EventsTable from "./eventsTable";
 
 const formSchema = z.object({
   eventName: z.string(),
@@ -35,6 +36,7 @@ const CustomEvent = ({
   setEventName,
   loading,
 }: ICustomEventProps) => {
+  const [displayGrid, setDisplayGrid] = useState("grid");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,7 +50,10 @@ const CustomEvent = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <CustomTotalFormDropDownWrapper totalResult={allEvents?.total}>
+        <CustomTotalFormDropDownWrapper
+          totalResult={allEvents?.total}
+          setDisplayGrid={setDisplayGrid}
+        >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleEventNameSubmit)}>
               <FormField
@@ -79,11 +84,16 @@ const CustomEvent = ({
           <>
             {allEvents?.results.length ? (
               <div className="flex flex-col gap-4">
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                  {allEvents.results.map((event) => (
-                    <IndividualEventCard key={event.id} event={event} />
-                  ))}
-                </div>
+                {displayGrid === "grid" ? (
+                  <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {allEvents.results.map((event) => (
+                      <IndividualEventCard key={event.id} event={event} />
+                    ))}
+                  </div>
+                ) : (
+                  <EventsTable events={allEvents} />
+                )}
+
                 <CustomPagination
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}

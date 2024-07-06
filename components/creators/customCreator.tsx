@@ -1,5 +1,5 @@
 import { IAllCreators } from "@/types/creator";
-import React from "react";
+import React, { useState } from "react";
 import IndividualCreatorCard from "./individualCreatorCard";
 import CustomDropDown from "../customDropDown";
 import CustomPagination from "../customPagination";
@@ -11,6 +11,7 @@ import { Input } from "../ui/input";
 import CustomNoResultFound from "../customNoResultFound";
 import CustomLoading from "../customLoading";
 import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
+import CreatorsTable from "./creatorsTable";
 
 const formSchema = z.object({
   creatorName: z.string(),
@@ -35,6 +36,7 @@ const CustomCreator = ({
   setCreatorName,
   loading,
 }: ICustomCreatorProps) => {
+  const [displayGrid, setDisplayGrid] = useState("grid");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -48,7 +50,10 @@ const CustomCreator = ({
   return (
     <>
       <div className="flex flex-col gap-4">
-        <CustomTotalFormDropDownWrapper totalResult={allCreators?.total}>
+        <CustomTotalFormDropDownWrapper
+          totalResult={allCreators?.total}
+          setDisplayGrid={setDisplayGrid}
+        >
           <Form {...form}>
             <form onSubmit={form.handleSubmit(handleCreatorNameSubmit)}>
               <FormField
@@ -79,11 +84,19 @@ const CustomCreator = ({
           <>
             {allCreators?.results.length ? (
               <div className="flex flex-col gap-4">
-                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                  {allCreators.results.map((creator) => (
-                    <IndividualCreatorCard key={creator.id} creator={creator} />
-                  ))}
-                </div>
+                {displayGrid === "grid" ? (
+                  <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                    {allCreators.results.map((creator) => (
+                      <IndividualCreatorCard
+                        key={creator.id}
+                        creator={creator}
+                      />
+                    ))}
+                  </div>
+                ) : (
+                  <CreatorsTable creators={allCreators} />
+                )}
+
                 <CustomPagination
                   currentPage={currentPage}
                   setCurrentPage={setCurrentPage}

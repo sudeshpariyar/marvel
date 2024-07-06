@@ -1,5 +1,5 @@
 import { IAllSeries } from "@/types/series";
-import React from "react";
+import React, { useState } from "react";
 import CustomNoResultFound from "../customNoResultFound";
 import IndividualSeriesCard from "./individualSeriesCard";
 import CustomDropDown from "../customDropDown";
@@ -11,6 +11,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomLoading from "../customLoading";
 import CustomTotalFormDropDownWrapper from "../customTotalFormDropDownWrapper";
+import SeriesTable from "./seriesTable";
 
 interface ICustomSeriesProps {
   allSeries?: IAllSeries;
@@ -34,6 +35,7 @@ const CustomSeries = ({
   setSeriesName,
   loading,
 }: ICustomSeriesProps) => {
+  const [displayGrid, setDisplayGrid] = useState("grid");
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,7 +49,10 @@ const CustomSeries = ({
 
   return (
     <div className="flex flex-col gap-4">
-      <CustomTotalFormDropDownWrapper totalResult={allSeries?.total}>
+      <CustomTotalFormDropDownWrapper
+        totalResult={allSeries?.total}
+        setDisplayGrid={setDisplayGrid}
+      >
         <Form {...form}>
           <form onSubmit={form.handleSubmit(handleSeriesNameSubmit)}>
             <FormField
@@ -78,11 +83,16 @@ const CustomSeries = ({
         <>
           {allSeries?.results.length ? (
             <div className="flex flex-col gap-4">
-              <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
-                {allSeries.results.map((series) => (
-                  <IndividualSeriesCard key={series.id} series={series} />
-                ))}
-              </div>
+              {displayGrid === "grid" ? (
+                <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+                  {allSeries.results.map((series) => (
+                    <IndividualSeriesCard key={series.id} series={series} />
+                  ))}
+                </div>
+              ) : (
+                <SeriesTable series={allSeries} />
+              )}
+
               <CustomPagination
                 currentPage={currentPage}
                 setCurrentPage={setCurrentPage}

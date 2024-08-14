@@ -1,0 +1,23 @@
+name: Workflow for Marvle Application
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  lintTest:
+    name: Running Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clone Repository
+        uses: actions/checkout@v2
+      - name: Install Dependencies
+        run: |
+          echo "Installing dependencies" 
+          npm install
+      - name: Running Linting
+        run: |
+          echo "Running Linting"
+          npm run lint
+        env:
+          CI: true

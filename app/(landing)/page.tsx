@@ -14,9 +14,10 @@ const LandingPage = () => {
     <div className="flex flex-col gap-10">
       <div className="relative h-svh">
         <Image
-          alt="Mountains"
+          alt="Main Benner"
           src="/marvel.png"
           fill
+          priority={true}
           className="object-cover object-center"
         />
       </div>
